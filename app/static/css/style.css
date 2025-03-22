@@ -79,7 +79,8 @@ section:last-child {
 }
 
 .prev-button,
-.next-button {
+.next-button,
+.first-section-button {
     background-color: var(--color-background);
     border: 1px solid var(--color-border);
     padding: 8px 16px;
@@ -90,7 +91,8 @@ section:last-child {
 }
 
 .prev-button:hover,
-.next-button:hover {
+.next-button:hover,
+.first-section-button:hover {
     background-color: var(--color-bg-hover);
 }
 
@@ -165,7 +167,8 @@ section h3 {
 }
 
 .prev-button,
-.next-button {
+.next-button,
+.first-section-button {
     background-color: var(--color-background);
     border: 1px solid var(--color-border);
     padding: 10px 20px;
@@ -177,7 +180,8 @@ section h3 {
 }
 
 .prev-button:hover,
-.next-button:hover {
+.next-button:hover,
+.first-section-button:hover {
     background-color: var(--color-bg-hover);
 }
 
@@ -218,7 +222,8 @@ section h3 {
     }
 
     .prev-button,
-    .next-button {
+    .next-button,
+    .first-section-button {
         padding: 8px 16px;
         font-size: 12px;
     }

@@ -45,8 +45,11 @@
             {% endif %}
             {% if not loop.last %}
                 <button class="next-button" onclick="scrollToNextSection('{{ chapter.id }}')">Suivant →</button>
+            {% else %}
+                <button class="first-section-button" onclick="scrollToFirstSection()">Revenir au début ↑</button>
             {% endif %}
         </div>
+        
     </section>
     {% endfor %}
 </div>

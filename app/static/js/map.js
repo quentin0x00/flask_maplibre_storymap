@@ -192,8 +192,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 });
+// Fonction pour revenir à la première section
+function scrollToFirstSection() {
+    const firstSection = document.querySelector('section:first-of-type');
+    if (firstSection) {
+        firstSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
-// Boutons de navigation du panneau
+// Bouton pour la section précédente
 function scrollToPreviousSection(currentSectionId) {
     const currentSection = document.getElementById(currentSectionId);
     if (!currentSection) return;
@@ -204,6 +211,7 @@ function scrollToPreviousSection(currentSectionId) {
     }
 }
 
+// Bouton pour la section suivante
 function scrollToNextSection(currentSectionId) {
     const currentSection = document.getElementById(currentSectionId);
     if (!currentSection) return;
