@@ -44,7 +44,7 @@ body {
 /*=============*/
 /*   Panneau   */
 /*=============*/
-#features {
+#panneau {
     width: 40%;
     margin-left: 60%;
     font-family: sans-serif;
@@ -56,13 +56,13 @@ body {
     position: fixed;
 }
 
-#features > * {
+#panneau > * {
     direction: ltr;
     text-align: left;
 }
 
 @media (max-width: 1300px) {
-    #features {
+    #panneau {
         width: 100%;
         margin-left: 0;
         height: calc(55vh - var(--footer-height));
@@ -118,7 +118,7 @@ section h3 {
     font-weight: 600;
 }
 
-.chapter-field {
+.encart-champ {
     margin-bottom: 12px;
 }
 
@@ -127,20 +127,20 @@ section h3 {
 }
 
 
-.chapter-field p {
+.encart-champ p {
     margin: 0;
     color: var(--color-text);
     font-size: 16px;
     line-height: 1.6;
 }
 
-.chapter-field a {
+.encart-champ a {
     color: #007BFF;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.chapter-field a:hover {
+.encart-champ a:hover {
     color: #0056b3;
     text-decoration: underline;
 }
@@ -197,7 +197,7 @@ section h3 {
         font-size: 20px;
     }
 
-    .chapter-field p {
+    .encart-champ p {
         font-size: 14px;
     }
 

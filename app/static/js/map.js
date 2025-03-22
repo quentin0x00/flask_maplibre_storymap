@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     /* Réinitialiser le panneau au chargement de la page */
-    const firstChapterId = Object.keys(chapters)[0];
-    const firstSection = document.getElementById(firstChapterId);
+    const firstencartId = Object.keys(encarts)[0];
+    const firstSection = document.getElementById(firstencartId);
     if (firstSection) {
         firstSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -156,37 +156,37 @@ document.addEventListener('DOMContentLoaded', function () {
 /*=========*/
 /* Panneau */
 /*=========*/
-    let activeChapterName = Object.keys(chapters)[0];
-    setActiveChapter(activeChapterName);
+    let activeencartName = Object.keys(encarts)[0];
+    setActiveencart(activeencartName);
 
-    function setActiveChapter(chapterName) {
-        if (chapterName === activeChapterName) return;
-        map.flyTo(chapters[chapterName]);
-        document.getElementById(chapterName).classList.add('active');
-        document.getElementById(activeChapterName).classList.remove('active');
-        activeChapterName = chapterName;
+    function setActiveencart(encartName) {
+        if (encartName === activeencartName) return;
+        map.flyTo(encarts[encartName]);
+        document.getElementById(encartName).classList.add('active');
+        document.getElementById(activeencartName).classList.remove('active');
+        activeencartName = encartName;
     }
 
-    // Vérifie si un élément est visible au sein de #features
+    // Vérifie si un élément est visible au sein de #panneau
     function isElementOnScreen(id) {
         const element = document.getElementById(id);
         if (!element) return false;
-        const featuresDiv = document.getElementById('features');
-        const featuresScrollTop = featuresDiv.scrollTop;
-        const featuresHeight = featuresDiv.clientHeight;
-        const threshold = featuresHeight * 0.2;
+        const panneauDiv = document.getElementById('panneau');
+        const panneauScrollTop = panneauDiv.scrollTop;
+        const panneauHeight = panneauDiv.clientHeight;
+        const threshold = panneauHeight * 0.2;
         const elementOffsetTop = element.offsetTop;
         const elementHeight = element.clientHeight;
-        return elementOffsetTop - featuresScrollTop <= threshold &&
-            elementOffsetTop + elementHeight - featuresScrollTop > threshold;
+        return elementOffsetTop - panneauScrollTop <= threshold &&
+            elementOffsetTop + elementHeight - panneauScrollTop > threshold;
     }
 
     // Gestion du défilement pour changer d'encart
-    document.getElementById('features').onscroll = function () {
-        const chapterNames = Object.keys(chapters);
-        for (const chapterName of chapterNames) {
-            if (isElementOnScreen(chapterName)) {
-                setActiveChapter(chapterName);
+    document.getElementById('panneau').onscroll = function () {
+        const encartNames = Object.keys(encarts);
+        for (const encartName of encartNames) {
+            if (isElementOnScreen(encartName)) {
+                setActiveencart(encartName);
                 break;
             }
         }

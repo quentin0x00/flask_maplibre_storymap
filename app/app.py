@@ -9,24 +9,24 @@ CSV_FILE = 'data.csv'
 
 def load_data_from_csv():
 
-    chapters = {}
-    chapter_content = []
+    encarts = {}
+    encart_content = []
     markers = []
 
     try:
         with open(CSV_FILE, 'r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                chapter_id = row['id']
-                chapters[chapter_id] = {
+                encart_id = row['id']
+                encarts[encart_id] = {
                     'bearing': float(row['bearing']),
                     'center': [float(row['longitude']), float(row['latitude'])],
                     'zoom': float(row['zoom']),
                     'pitch': float(row.get('pitch', 0)),
                     'speed': float(row.get('speed', 1.0))
                 }
-                chapter_content.append({
-                    'id': chapter_id,
+                encart_content.append({
+                    'id': encart_id,
                     'title': row['title'],
                     'role': row.get('role', ''),
                     'date': row.get('date', ''),
@@ -38,7 +38,7 @@ def load_data_from_csv():
                     'border_color': row.get('border_color', '')
                 })
                 markers.append({
-                    'id': chapter_id,
+                    'id': encart_id,
                     'lng': float(row['longitude']),
                     'lat': float(row['latitude']),
                     'title': row['title'],
@@ -50,17 +50,17 @@ def load_data_from_csv():
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier CSV: {e}")
 
-    return chapters, chapter_content, markers
+    return encarts, encart_content, markers
 
 @app.route('/')
 def index():
-    chapters, chapter_content, markers = load_data_from_csv()
-    chapters_json = json.dumps(chapters)
+    encarts, encart_content, markers = load_data_from_csv()
+    encarts_json = json.dumps(encarts)
     markers_json = json.dumps(markers)
 
     return render_template('index.html',
-                           chapters_json=chapters_json,
-                           chapter_content=chapter_content,
+                           encarts_json=encarts_json,
+                           encart_content=encart_content,
                            markers_json=markers_json)
 
 def create_csv_if_not_exists():

@@ -1,50 +1,49 @@
-<div id="features">
-    {% for chapter in chapter_content %}
-    <section id="{{ chapter.id }}" class="{{ 'active first-section' if loop.first else '' }}">
-        <h3>{{ chapter.title }}</h3>
+    {% for encart in encart_content %}
+    <section id="{{ encart.id }}" class="{{ 'active first-section' if loop.first else '' }}">
+        <h3>{{ encart.title }}</h3>
 
-        {% if chapter.role %}
-        <div class="chapter-field">
-            <b><p>{{ chapter.role }}</p></b>
+        {% if encart.role %}
+        <div class="encart-champ">
+            <b><p>{{ encart.role }}</p></b>
         </div>
         {% endif %}
 
-        {% if chapter.date %}
-        <div class="chapter-field" id="date">
-            <p>{{ chapter.date }}</p>
+        {% if encart.date %}
+        <div class="encart-champ" id="date">
+            <p>{{ encart.date }}</p>
         </div>
         {% endif %}
 
-        {% if chapter.content %}
-        <div class="chapter-field">
-            <p>{{ chapter.content.replace(';', '<br>') | safe }}</p>
+        {% if encart.content %}
+        <div class="encart-champ">
+            <p>{{ encart.content.replace(';', '<br>') | safe }}</p>
         </div>
         {% endif %}
 
-        {% if chapter.skills %}
-        <div class="chapter-field">
+        {% if encart.skills %}
+        <div class="encart-champ">
             <div class="skills">
-                {% for skill in chapter.skills.split(';') %}
+                {% for skill in encart.skills.split(';') %}
                 <span class="skill">{{ skill.strip() }}</span>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
 
-        {% if chapter.link and chapter.link_alias %}
-        <div class="chapter-field">
+        {% if encart.link and encart.link_alias %}
+        <div class="encart-champ">
             <p>
-                <a href="{{ chapter.link }}" target="_blank">{{ chapter.link_alias }}</a>
+                <a href="{{ encart.link }}" target="_blank">{{ encart.link_alias }}</a>
             </p>
         </div>
         {% endif %}
 
         <div class="navigation-buttons">
             {% if not loop.first %}
-                <button class="prev-button" onclick="scrollToPreviousSection('{{ chapter.id }}')">← Précédent</button>
+                <button class="prev-button" onclick="scrollToPreviousSection('{{ encart.id }}')">← Précédent</button>
             {% endif %}
             {% if not loop.last %}
-                <button class="next-button" onclick="scrollToNextSection('{{ chapter.id }}')">Suivant →</button>
+                <button class="next-button" onclick="scrollToNextSection('{{ encart.id }}')">Suivant →</button>
             {% else %}
                 <button class="first-section-button" onclick="scrollToFirstSection()">Revenir au début ↑</button>
             {% endif %}
@@ -52,4 +51,3 @@
         
     </section>
     {% endfor %}
-</div>

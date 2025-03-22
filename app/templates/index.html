@@ -2,24 +2,23 @@
 <html lang="en">
 <head>
     <title>Mon parcours</title>
-    <meta property="og:description" content="Scroll down through the story and the map will fly to the chapter's location." />
+    <meta property="og:description" content="Scroll down through the story and the map will fly to the encart's location." />
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="static/css/style.css">
     <link href="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
-    <header>{% include 'navbar.html' %}</header> 
-    
-    <div id="map"></div>
-     {% include 'panneau.html' %}
 
-<footer>
-    <div>© 2025 Quentin Rouquette</div>
-</footer>
+    <header> {% include 'navbar.html' %} </header> 
+
+    <div id="map"></div>
+    <div id="panneau"> {% include 'panneau.html' %} </div>
+
+    <footer><div>© 2025 Quentin Rouquette</div></footer>
 
 <script> 
-    const chapters = JSON.parse('{{ chapters_json | safe }}');
+    const encarts = JSON.parse('{{ encarts_json | safe }}');
     const markers = JSON.parse('{{ markers_json | safe }}');
 </script>
 
