@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     /* Réinitialiser le panneau au chargement de la page */
     const firstChapterId = Object.keys(chapters)[0];
     const firstSection = document.getElementById(firstChapterId);
@@ -7,8 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
         firstSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-
-    /* Carte */
+/*=======*/
+/* Carte */
+/*=======*/
     const map = new maplibregl.Map({
         container: 'map',
         style: {
@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }), 'bottom-right');
 
 
+/*=========*/
+/* Bati 3D */
+/*=========*/
     function add3DBuildings() {
         if (map.getLayer('3d-buildings')) return;
         if (!map.getSource('openmaptiles')) {
@@ -94,11 +97,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    /* Markers */
+/*=========*/
+/* Markers */
+/*=========*/
     function createCustomMarker(marker) {
         const el = document.createElement('div');
-        el.style.width = '50px';
-        el.style.height = '50px';
+        el.style.width = '60px';
+        el.style.height = '60px';
         el.style.borderRadius = '50%';
         el.style.border = `6px solid ${marker.border_color}`;
         el.style.backgroundImage = `url('${marker.url_img}')`;
@@ -148,7 +153,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    /* Panneau */
+/*=========*/
+/* Panneau */
+/*=========*/
     let activeChapterName = Object.keys(chapters)[0];
     setActiveChapter(activeChapterName);
 

@@ -132,7 +132,7 @@ section h3 {
 }
 
 .chapter-field {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 #date {
@@ -267,6 +267,7 @@ section h3 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     background-color: var(--color-background);
     height: var(--header-height);
+    font-size: 1.2em;
 }
   
 .nav {
