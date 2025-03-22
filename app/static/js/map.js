@@ -125,6 +125,25 @@ document.addEventListener('DOMContentLoaded', function () {
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
             }
+
+            const currentZoom = map.getZoom();
+            if (currentZoom >= 16) {
+                map.flyTo({
+                    center: [marker.lng, marker.lat],
+                    zoom: 3,
+                    speed: 1.3,
+                    bearing: 0,
+                    pitch: 0
+                });
+            } else {
+                map.flyTo({
+                    center: [marker.lng, marker.lat],
+                    zoom: 16,
+                    speed: 1.3,
+                    bearing: 0,
+                    pitch: 60
+                });
+            }
         });
     });
 

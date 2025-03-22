@@ -9,8 +9,14 @@
     --header-height: 8vh;
     --footer-height: 5vh;
 }
-  
+
+* {
+    font-family: 'Deja Vu Serif', serif;
+}
+
+
 html { height: 100%; }
+
 
 body { 
     margin: 0; 
