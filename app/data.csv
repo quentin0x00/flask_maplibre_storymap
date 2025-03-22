@@ -1,0 +1,8 @@
+id,title,content,bearing,longitude,latitude,zoom,pitch,speed
+baker,221b Baker St.,November 1895. London is shrouded in fog and Sherlock Holmes and Watson pass time restlessly awaiting a new case.,27,-0.15591514,51.51830379,15.5,20,1.0
+aldgate,Aldgate Station,"Arthur Cadogan West was found dead, head crushed in on train tracks at Aldgate Station at 6AM Tuesday morning.",150,-0.07571203,51.51424049,15,0,1.0
+paris,Eiffel Tower,"The Eiffel Tower is an iconic symbol of Paris, attracting nearly 7 million visitors each year.",0,2.294481,48.858370,15,0,1.0
+newyork,Statue of Liberty,"The Statue of Liberty is a symbol of freedom and democracy, standing tall in New York Harbor.",90,-74.044502,40.689247,15,20,1.0
+tokyo,Shibuya Crossing,"Shibuya Crossing is one of the busiest intersections in the world, located in Tokyo.",180,139.691711,35.658581,15,0,1.0
+sydney,Opera House,"The Sydney Opera House is a multi-venue performing arts centre, famous for its unique design.",270,151.215297,-33.856784,15,20,1.0
+rio,Christ the Redeemer,"Christ the Redeemer is a colossal statue of Jesus Christ, overlooking the city of Rio de Janeiro.",0,-43.210487,-22.951916,15,0,1.0

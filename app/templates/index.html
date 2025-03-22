@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mon parcours</title>
+    <meta property="og:description" content="Scroll down through the story and the map will fly to the chapter's location." />
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+<body>
+<header>{% include 'navbar.html' %}</header> 
+<div id="map"></div>
+<div id="features">
+    {% for chapter in chapter_content %}
+    <section id="{{ chapter.id }}" class="{{ 'active first-section' if loop.first else '' }}">
+        <h3>{{ chapter.title }}</h3>
+        <p>{{ chapter.content }}</p>
+        <div class="navigation-buttons">
+            {% if not loop.first %}
+                <button class="prev-button" onclick="scrollToPreviousSection('{{ chapter.id }}')">← Précédent</button>
+            {% endif %}
+            {% if not loop.last %}
+                <button class="next-button" onclick="scrollToNextSection('{{ chapter.id }}')">Suivant →</button>
+            {% endif %}
+        </div>
+    </section>
+    {% endfor %}
+</div>
+<footer>
+    <div>© 2025 Quentin Rouquette</div>
+</footer>
+
+<script> 
+    const chapters = JSON.parse('{{ chapters_json | safe }}');
+    const markers = JSON.parse('{{ markers_json | safe }}');
+</script>
+<script src="static/js/map.js"></script>
+<script src="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.js"></script>
+
+</body>
+</html>
