@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 source: 'voyager-raster'
             }]
         },
-        center: [-0.15591514, 51.51830379],
-        zoom: 15.5,
-        bearing: 27,
-        pitch: 45,
+        center: ['-1.553603493340308', '47.218599718064844'],
+        zoom: 2,
+        bearing: 0,
+        pitch: 0,
         attributionControl: false,
         
     });
@@ -39,6 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
         map.setProjection({
             type: 'globe', // Set projection to globe
         });
+    });
+    map.on('load', () => {
+        map.flyTo({
+            center: ['-1.553603493340308', '47.218599718064844'],
+            zoom: 15,
+            speed: 1.3,
+            pitch: 60
+        });
+
     });
 
     markers.forEach(marker => {

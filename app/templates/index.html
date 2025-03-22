@@ -15,7 +15,49 @@
     {% for chapter in chapter_content %}
     <section id="{{ chapter.id }}" class="{{ 'active first-section' if loop.first else '' }}">
         <h3>{{ chapter.title }}</h3>
-        <p>{{ chapter.content }}</p>
+        
+        <!-- Afficher le rôle -->
+        {% if chapter.role %}
+        <div class="chapter-field">
+            <p>{{ chapter.role }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Afficher les dates -->
+        {% if chapter.date %}
+        <div class="chapter-field">
+            <p>{{ chapter.date }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Afficher le contenu -->
+        {% if chapter.content %}
+        <div class="chapter-field">
+            <p>{{ chapter.content.replace(';', '<br>') | safe }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Afficher les compétences -->
+        {% if chapter.skills %}
+        <div class="chapter-field">
+            <div class="skills">
+                {% for skill in chapter.skills.split(';') %}
+                <span class="skill">{{ skill.strip() }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Afficher le lien avec son alias -->
+        {% if chapter.link and chapter.link_alias %}
+        <div class="chapter-field">
+            <p>
+                <a href="{{ chapter.link }}" target="_blank">{{ chapter.link_alias }}</a>
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Boutons de navigation -->
         <div class="navigation-buttons">
             {% if not loop.first %}
                 <button class="prev-button" onclick="scrollToPreviousSection('{{ chapter.id }}')">← Précédent</button>
