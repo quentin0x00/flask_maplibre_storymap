@@ -64,7 +64,7 @@ section.active {
 
 section:last-child {
     border-bottom: none;
-    margin-bottom: 70vh;
+    margin-bottom: 30vh;
 }
 .navigation-buttons {
     display: flex;
@@ -96,6 +96,135 @@ section:last-child {
 .first-section .next-button {
     margin-left: auto; /* Pousser le bouton "Suivant" à droite */
 }
+/* Modernisation des sections */
+section {
+    padding: 30px 50px;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--color-border);
+    opacity: 0.25;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-color: var(--color-background);
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+section.active {
+    opacity: 1;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+section h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.chapter-field {
+    margin-bottom: 8px;
+}
+
+#date {
+    margin-bottom: 20px;
+}
+
+
+.chapter-field p {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.chapter-field a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.chapter-field a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Amélioration des boutons de navigation */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.prev-button,
+.next-button {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: var(--color-text);
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: var(--color-bg-hover);
+}
+
+/* Style pour les compétences */
+.skills {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.skills span {
+    background-color: #e4e4e7;
+    border-radius: 9999px;
+    color: #18181b;
+    padding: 4px 12px;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+}
+
+.skills span:hover {
+    background-color: #d4d4d8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    section {
+        padding: 20px;
+        margin: 5px 0;
+    }
+
+    section h3 {
+        font-size: 20px;
+    }
+
+    .chapter-field p {
+        font-size: 14px;
+    }
+
+    .prev-button,
+    .next-button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .skills span {
+        padding: 2px 8px;
+    }
+}
+
 @media (max-width: 768px) {
     #map {
         width: 100%;

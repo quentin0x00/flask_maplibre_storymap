@@ -19,13 +19,13 @@
         <!-- Afficher le rôle -->
         {% if chapter.role %}
         <div class="chapter-field">
-            <p>{{ chapter.role }}</p>
+            <b><p>{{ chapter.role }}</p></b>
         </div>
         {% endif %}
 
         <!-- Afficher les dates -->
         {% if chapter.date %}
-        <div class="chapter-field">
+        <div class="chapter-field" id="date">
             <p>{{ chapter.date }}</p>
         </div>
         {% endif %}

@@ -1,15 +1,12 @@
-// Fonctions globales pour la navigation entre les sections
-function scrollToPreviousSection(currentSectionId) {
-    const prevSection = document.getElementById(currentSectionId)?.previousElementSibling;
-    prevSection?.scrollIntoView({ behavior: 'smooth' });
-}
-
-function scrollToNextSection(currentSectionId) {
-    const nextSection = document.getElementById(currentSectionId)?.nextElementSibling;
-    nextSection?.scrollIntoView({ behavior: 'smooth' });
-}
-
 document.addEventListener('DOMContentLoaded', function () {
+    // Remonter au premier élément (section) au chargement de la page
+    const firstChapterId = Object.keys(chapters)[0]; // Récupère l'ID du premier chapitre
+    const firstSection = document.getElementById(firstChapterId);
+    if (firstSection) {
+        firstSection.scrollIntoView({ behavior: 'smooth' }); // Défilement vers le premier élément
+    }
+
+    // Initialisation de la carte
     const map = new maplibregl.Map({
         container: 'map',
         style: {
@@ -30,31 +27,51 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         center: ['-1.553603493340308', '47.218599718064844'],
         zoom: 2,
-        bearing: 0,
-        pitch: 0,
+        // bearing: 20,
+        pitch: -20,
         attributionControl: false,
-        
     });
+
     map.on('style.load', () => {
         map.setProjection({
             type: 'globe', // Set projection to globe
         });
     });
+
     map.on('load', () => {
         map.flyTo({
             center: ['-1.553603493340308', '47.218599718064844'],
-            zoom: 15,
+            zoom: 16,
             speed: 1.3,
+            bearing: 0,
             pitch: 60
         });
-
     });
 
-    markers.forEach(marker => {
-        const markerElement = new maplibregl.Marker()
-            .setLngLat([marker.lng, marker.lat])
-            .addTo(map);
+    function createCustomMarker(marker) {
+        const el = document.createElement('div');
+        el.style.width = '50px'; // Taille du marqueur
+        el.style.height = '50px';
+        el.style.borderRadius = '50%'; // Forme ronde
+        el.style.border = `6px solid ${marker.border_color}`; // Bordure avec la couleur spécifiée
+        el.style.backgroundImage = `url('${marker.url_img}')`; // Image de fond
+        el.style.backgroundSize = '100%'; // Dézoomer l'image (réduire sa taille à 80%)
+        el.style.backgroundPosition = 'center'; // Centrer l'image
+        el.style.backgroundColor = '#fff'; // Fond blanc
+        el.style.backgroundRepeat = 'no-repeat'; 
+        el.style.cursor = 'pointer'; // Curseur en forme de main au survol
+        return el;
+    }
     
+
+    // Ajout des marqueurs à la carte
+    markers.forEach(marker => {
+        const markerElement = new maplibregl.Marker({
+            element: createCustomMarker(marker) // Utiliser l'élément personnalisé
+        })
+        .setLngLat([marker.lng, marker.lat])
+        .addTo(map);
+
         // Ajouter un événement "click" au marqueur
         markerElement.getElement().addEventListener('click', () => {
             console.log('Marqueur cliqué :', marker.id); // Vérifiez que l'événement est déclenché
@@ -75,11 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "© <a href='https://maplibre.org/' target='_blank'>MapLibre</a>"
         ]
     }), 'bottom-right');
-    // map.once('load', function () {
-    //     document.querySelector('.maplibregl-ctrl-attrib-button')?.click();
-    // });
 
-    
     // Fonction pour ajouter les couches supplémentaires (bâtiments 3D, etc.)
     function addExtraLayers() {
         add3DBuildings();
@@ -162,3 +175,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 });
+
+// Fonctions pour la navigation entre les sections
+function scrollToPreviousSection(currentSectionId) {
+    const currentSection = document.getElementById(currentSectionId);
+    if (!currentSection) return;
+
+    const prevSection = currentSection.previousElementSibling;
+    if (prevSection && prevSection.tagName === 'SECTION') {
+        prevSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function scrollToNextSection(currentSectionId) {
+    const currentSection = document.getElementById(currentSectionId);
+    if (!currentSection) return;
+
+    const nextSection = currentSection.nextElementSibling;
+    if (nextSection && nextSection.tagName === 'SECTION') {
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}

@@ -33,13 +33,17 @@ def load_data_from_csv():
                     'content': row.get('content', ''),  # Ajouter le contenu
                     'skills': row.get('skills', ''),  # Ajouter les compétences
                     'link': row.get('link', ''),  # Ajouter le lien
-                    'link_alias': row.get('link_alias', '')  # Ajouter l'alias du lien
+                    'link_alias': row.get('link_alias', ''),  # Ajouter l'alias du lien
+                    'url_img': row.get('url_img', ''),  # Ajouter l'URL de l'image
+                    'border_color': row.get('border_color', '')  # Ajouter la couleur de bordure
                 })
                 markers.append({
                     'id': chapter_id,
                     'lng': float(row['longitude']),
                     'lat': float(row['latitude']),
-                    'title': row['title']
+                    'title': row['title'],
+                    'url_img': row.get('url_img', ''),  # Ajouter l'URL de l'image
+                    'border_color': row.get('border_color', '')  # Ajouter la couleur de bordure
                 })
     except FileNotFoundError:
         print(f"Le fichier {CSV_FILE} n'a pas été trouvé.")
@@ -68,13 +72,13 @@ def create_csv_if_not_exists():
         try:
             with open(CSV_FILE, 'w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
-                writer.writerow(['id', 'title', 'role', 'date', 'content', 'skills', 'bearing', 'longitude', 'latitude', 'zoom', 'pitch', 'speed', 'link', 'link_alias'])
+                writer.writerow(['id', 'title', 'role', 'date', 'content', 'skills', 'bearing', 'longitude', 'latitude', 'zoom', 'pitch', 'speed', 'link', 'link_alias', 'url_img', 'border_color'])
                 writer.writerows([
-                    ['2025', 'Bonjour ! 👋', "Géomaticien basé sur Nantes.", "", "J'administre un SGBD spatial, ; automatise les traitements, ; et gère un portail web-cartographique.","PostgreSQL ; Python ; GeoServer ; Qgis ; Gdal/Ogr ; Vmap ; Maplibre ; Flask  ; Git ; Docker ; Linux", '0', '-1.553603493340308', '47.218599718064844', '15', '60', '1.3', '#', 'Contactez moi'],
-                    ['2023', 'Abei Energy ⚡️', "Chargé d'études SIG (cdi - poste actuel)", "02|2023 - Présent", '> Automatisation du traitement de données  ; > Développement et maintenance du webSIG de l\'entreprise', "PostgreSQL ; Python ; GeoServer ; Qgis ; Gdal/Ogr ; Vmap ; Git ; Docker",'0', '-3.6914852859185343', '40.42880022606314', '15', '60', '1.3', '#', 'Abei Energy'],
-                    ['2022', 'Thema Environnement 🌱', "Géomaticien (cdd - 6 mois)", "05|2022 - 11|2022", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Qgis ; Arcgis ; Gdal; Adobe Illustrator", '0', '-1.1857005797117022', '47.40885995562285', '15', '60', '1.3', '#', 'Thema Environnement'],
-                    ['2021', 'GIP Littoral 🌊', "Chargé d'études SIG (cdd - 6 mois & stage - 6 mois)", "03|2021 - 04|2022", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Qgis ; Gdal; Adobe Illustrator", '0', '-0.5513001527871958', '44.82764741819648', '15', '60', '1.3', '#', 'Gip Littoral'],
-                    ['2016', 'Université de Nantes IGARUN 📚', "Master 2 - SIG", "09|2016 - 09|2021", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Python ; Qgis ; Adobe Illustrator", '0', '-1.5492718817522353', '47.24614588519798', '15', '60', '1.3', '#', 'Université de Nantes']
+                    ['0', 'Bonjour ! 👋', "Géomaticien basé sur Nantes.", "", "J'administre un SGBD spatial, automatise les traitements, et gère un portail web-cartographique.","PostgreSQL ; Python ; GeoServer ; Qgis ; Gdal/Ogr ; Vmap ; Maplibre ; Flask  ; Git ; Docker ; Linux", '0', '-1.553603493340308', '47.218599718064844', '16', '60', '1.3', '#', 'Contacter', '/static/img/moi.png', '#C84D82'],
+                    ['1', 'Abei Energy ⚡️', "Chargé d'études SIG (cdi - poste actuel)", "02|2023 - Présent", '> Automatisation du traitement de données  ; > Développement et maintenance du webSIG de l\'entreprise', "PostgreSQL ; Python ; GeoServer ; Qgis ; Gdal/Ogr ; Vmap ; Git ; Docker",'0', '-3.6914852859185343', '40.42880022606314', '16', '60', '1.3', '#', 'Abei Energy', '/static/img/abei.png', '#F4A261'],
+                    ['2', 'Thema Environnement 🌱', "Géomaticien (cdd - 6 mois)", "05|2022 - 11|2022", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Qgis ; Arcgis ; Gdal; Adobe Illustrator", '0', '-1.1857005797117022', '47.40885995562285', '16', '60', '1.3', '#', 'Thema Environnement', '/static/img/thema.png', '#37A77B'],
+                    ['3', 'GIP Littoral 🌊', "Chargé d'études SIG (cdd - 6 mois & stage - 6 mois)", "03|2021 - 04|2022", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Qgis ; Gdal; Adobe Illustrator", '0', '-0.5513001527871958', '44.82764741819648', '16', '60', '1.3', '#', 'Gip Littoral', '/static/img/gip.png', '#4575D4'],
+                    ['4', 'Université de Nantes IGARUN 📚', "Master 2 - SIG", "09|2016 - 09|2021", '> Traitement de données; > Analyses spatiales; > Atlas et cartographies', "PostgreSQL; Python ; Qgis ; Adobe Illustrator", '0', '-1.5492718817522353', '47.24614588519798', '16', '60', '1.3', '#', 'Université de Nantes', '/static/img/un.png', '#87a7fa']
                 ])
             print(f"Fichier {CSV_FILE} créé avec des données d'exemple.")
         except Exception as e:
