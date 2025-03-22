@@ -59,9 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
     }), 'bottom-right');
 
-    function addExtraLayers() {
-        add3DBuildings();
-    }
 
     function add3DBuildings() {
         if (map.getLayer('3d-buildings')) return;
@@ -92,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     map.once('idle', function () {
-        addExtraLayers();
+        add3DBuildings();
     });
 
 

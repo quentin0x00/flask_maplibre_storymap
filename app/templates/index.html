@@ -9,60 +9,11 @@
     <link href="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
-<header>{% include 'navbar.html' %}</header> 
-<div id="map"></div>
-<div id="features">
-    {% for chapter in chapter_content %}
-    <section id="{{ chapter.id }}" class="{{ 'active first-section' if loop.first else '' }}">
-        <h3>{{ chapter.title }}</h3>
+    <header>{% include 'navbar.html' %}</header> 
+    
+    <div id="map"></div>
+     {% include 'panneau.html' %}
 
-        {% if chapter.role %}
-        <div class="chapter-field">
-            <b><p>{{ chapter.role }}</p></b>
-        </div>
-        {% endif %}
-
-        {% if chapter.date %}
-        <div class="chapter-field" id="date">
-            <p>{{ chapter.date }}</p>
-        </div>
-        {% endif %}
-
-        {% if chapter.content %}
-        <div class="chapter-field">
-            <p>{{ chapter.content.replace(';', '<br>') | safe }}</p>
-        </div>
-        {% endif %}
-
-        {% if chapter.skills %}
-        <div class="chapter-field">
-            <div class="skills">
-                {% for skill in chapter.skills.split(';') %}
-                <span class="skill">{{ skill.strip() }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if chapter.link and chapter.link_alias %}
-        <div class="chapter-field">
-            <p>
-                <a href="{{ chapter.link }}" target="_blank">{{ chapter.link_alias }}</a>
-            </p>
-        </div>
-        {% endif %}
-
-        <div class="navigation-buttons">
-            {% if not loop.first %}
-                <button class="prev-button" onclick="scrollToPreviousSection('{{ chapter.id }}')">← Précédent</button>
-            {% endif %}
-            {% if not loop.last %}
-                <button class="next-button" onclick="scrollToNextSection('{{ chapter.id }}')">Suivant →</button>
-            {% endif %}
-        </div>
-    </section>
-    {% endfor %}
-</div>
 <footer>
     <div>© 2025 Quentin Rouquette</div>
 </footer>
@@ -71,6 +22,7 @@
     const chapters = JSON.parse('{{ chapters_json | safe }}');
     const markers = JSON.parse('{{ markers_json | safe }}');
 </script>
+
 <script src="static/js/map.js"></script>
 <script src="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.js"></script>
 
