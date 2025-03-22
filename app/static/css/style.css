@@ -203,7 +203,7 @@ section h3 {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
     section {
         padding: 20px;
         margin: 5px 0;
@@ -251,7 +251,7 @@ section h3 {
 
     section:last-child {
         border-bottom: none;
-        margin-bottom: 15vh;
+        margin-bottom: 10vh;
     }
 }
 
