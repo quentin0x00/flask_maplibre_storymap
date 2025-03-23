@@ -36,7 +36,8 @@ def extract_markers(row):
         'lat': float(row['latitude']),
         'url_img': row.get('url_img', ''),
         'border_color': row.get('border_color', ''),
-        'bg_size': row['bg_size']
+        'bg_size': row['bg_size'],
+        'title_popup' : row['title_popup']
     }
 
 
