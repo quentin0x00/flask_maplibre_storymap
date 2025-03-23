@@ -3,7 +3,10 @@ export function createEncarts(encarts, map) {
     const encartContent = document.getElementById('encart-content');
     encartContent.innerHTML = encarts.map((encart, index) => `
         <section id="${encart.id}" class="${index === 0 ? 'active first-section' : ''} ${index === encarts.length - 1 ? 'last-section' : ''}" data-border-color="${encart.border_color}">
-            <h3 class="encart-title">${encart.title}</h3>
+            <div class="encart-id-circle" style="background-color: ${encart.border_color};">
+                ${index + 1}/${encarts.length}
+            </div>   
+        <h3 class="encart-title" style="border-left: 8px solid ${encart.border_color}; padding-left: 16px"> ${encart.title}</h3>
             ${encart.role ? `<div class="encart-champ" id="role"><b><p>${encart.role}</p></b></div>` : ''}
             ${encart.date ? `<div class="encart-champ" id="date"><p>${encart.date}</p></div>` : ''}
             ${encart.content ? `<div class="encart-champ"><p>${encart.content.replace(/;/g, '<br>')}</p></div>` : ''}
@@ -25,21 +28,8 @@ export function createEncarts(encarts, map) {
         </section>
     `).join('');
 
-    applyTitleStyles();
     setupNavigationButtons(map);
     setupScrollListener(map);
-}
-
-function applyTitleStyles() {
-    const sections = document.querySelectorAll('section[data-border-color]');
-    sections.forEach(section => {
-        const borderColor = section.getAttribute('data-border-color');
-        const title = section.querySelector('h3.encart-title');
-        if (title && borderColor) {
-            title.style.borderLeft = `8px solid ${borderColor}`;
-            title.style.paddingLeft = `16px`;
-        }
-    });
 }
 
 function setupNavigationButtons(map) {

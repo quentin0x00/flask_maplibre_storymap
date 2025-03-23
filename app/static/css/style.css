@@ -77,6 +77,23 @@ body {
 /*============*/
 /*   Encart   */
 /*============*/
+.encart-id-circle {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 30px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+}
+
 section.last-section {
     border-bottom: none;
     margin-bottom: 40vh;
@@ -105,6 +122,7 @@ section {
     margin: 10px 0;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 section.active {
@@ -357,3 +375,5 @@ footer {
     color: #71717a;
     z-index: 40;
 }
+
+
