@@ -13,7 +13,8 @@ export async function fetchData() {
             lat: encart.center[1],
             title: encart.title,
             url_img: encart.url_img,
-            border_color: encart.border_color
+            border_color: encart.border_color,
+            bg_size : encart.bg_size
         }));
 
         return { encarts, markers };

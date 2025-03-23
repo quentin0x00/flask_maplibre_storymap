@@ -17,7 +17,7 @@ function createCustomMarker(marker) {
     el.style.borderRadius = '50%';  
     el.style.border = `6px solid ${marker.border_color}`;
     el.style.backgroundImage = `url('${marker.url_img}')`;
-    el.style.backgroundSize = '100%';
+    el.style.backgroundSize = `${marker.bg_size}`;
     el.style.backgroundPosition = 'center';
     el.style.backgroundColor = '#fff';
     el.style.backgroundRepeat = 'no-repeat';

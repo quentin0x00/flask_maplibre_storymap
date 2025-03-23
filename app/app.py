@@ -39,7 +39,8 @@ def service_data():
                     'pitch': float(row.get('pitch', 0)),
                     'speed': float(row.get('speed', 1.0)),
                     'lng': float(row['longitude']),
-                    'lat': float(row['latitude'])
+                    'lat': float(row['latitude']),
+                    'bg_size': row['bg_size']
                 }
                 data.append(extract)
     except FileNotFoundError:

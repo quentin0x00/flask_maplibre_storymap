@@ -19,7 +19,7 @@ export function createEncarts(encarts, map) {
                 </div>` : ''}
             ${encart.link && encart.link_alias ? `
                 <div class="encart-champ">
-                    <p><a href="${encart.link}" target="_blank">${encart.link_alias}</a></p>
+                    <p><a href="${encart.link}" target="_blank">Visiter le site</a></p>
                 </div>` : ''}
             <div class="navigation-buttons">
                 ${index !== 0 ? `<button class="prev-button" data-section-id="${encart.id}">← Précédent</button>` : ''}
