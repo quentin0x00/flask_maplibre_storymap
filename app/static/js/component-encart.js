@@ -1,5 +1,4 @@
-let currentActiveEncart = null; // Variable pour suivre la section active
-let isMarkerClick = false; // Indicateur pour suivre les clics sur les marqueurs
+let currentActiveEncart = null;
 
 export function createEncarts(encarts, map) {
     const encartContent = document.getElementById('encart-content');
@@ -8,7 +7,7 @@ export function createEncarts(encarts, map) {
             <div class="encart-id-circle" style="background-color: ${encart.border_color};">
                 ${index + 1}/${encarts.length}
             </div>   
-        <h3 class="encart-title" style="border-left: 8px solid ${encart.border_color}; padding-left: 16px"> ${encart.title}</h3>
+            <h3 class="encart-title" style="border-left: 8px solid ${encart.border_color}; padding-left: 16px"> ${encart.title}</h3>
             ${encart.role ? `<div class="encart-champ" id="role"><b><p>${encart.role}</p></b></div>` : ''}
             ${encart.date ? `<div class="encart-champ" id="date"><p>${encart.date}</p></div>` : ''}
             ${encart.content ? `<div class="encart-champ"><p>${encart.content.replace(/;/g, '<br>')}</p></div>` : ''}
@@ -57,7 +56,7 @@ function setupScrollListener(map) {
     setActiveencart(activeencartName, map);
 
     document.getElementById('panneau').onscroll = function () {
-        if (isMarkerClick) return; // Ne rien faire si l'action provient d'un clic sur un marqueur
+        if (window.isMarkerClick) return;
 
         const encartNames = Object.keys(window.encarts);
         for (const encartName of encartNames) {
@@ -86,7 +85,6 @@ export function scrollToFirstSection(map) {
     const firstSection = document.querySelector('section:first-of-type');
     if (firstSection) {
         firstSection.scrollIntoView({ behavior: 'smooth' });
-        setActiveencart(firstSection.id, map);
     }
 }
 
@@ -97,7 +95,6 @@ export function scrollToPreviousSection(currentSectionId, map) {
     const prevSection = currentSection.previousElementSibling;
     if (prevSection && prevSection.tagName === 'SECTION') {
         prevSection.scrollIntoView({ behavior: 'smooth' });
-        setActiveencart(prevSection.id, map);
     }
 }
 
@@ -108,12 +105,11 @@ export function scrollToNextSection(currentSectionId, map) {
     const nextSection = currentSection.nextElementSibling;
     if (nextSection && nextSection.tagName === 'SECTION') {
         nextSection.scrollIntoView({ behavior: 'smooth' });
-        setActiveencart(nextSection.id, map);
     }
 }
 
 export function setActiveencart(encartName, map) {
-    if (currentActiveEncart === encartName) return; // Ne rien faire si la section active n'a pas changé
+    if (currentActiveEncart === encartName) return;
 
     const activeencart = document.querySelector('.active');
     if (activeencart) {
@@ -122,7 +118,7 @@ export function setActiveencart(encartName, map) {
     const newActiveencart = document.getElementById(encartName);
     if (newActiveencart) {
         newActiveencart.classList.add('active');
-        currentActiveEncart = encartName; // Mettre à jour la section active
+        currentActiveEncart = encartName;
 
         const encartData = window.encarts.find(encart => encart.id === encartName);
         if (encartData) {
@@ -135,4 +131,4 @@ export function setActiveencart(encartName, map) {
             });
         }
     }
-}   
+}

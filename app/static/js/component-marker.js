@@ -14,7 +14,7 @@ function createCustomMarker(marker) {
     const el = document.createElement('div');
     el.style.width = '60px';
     el.style.height = '60px';
-    el.style.borderRadius = '50%';
+    el.style.borderRadius = '50%';  
     el.style.border = `6px solid ${marker.border_color}`;
     el.style.backgroundImage = `url('${marker.url_img}')`;
     el.style.backgroundSize = '100%';
@@ -25,7 +25,6 @@ function createCustomMarker(marker) {
     return el;
 }
 
-let isMarkerClick = false; // Indicateur pour suivre les clics sur les marqueurs
 function handleMarkerClick(map, marker) {
     const sectionId = marker.id;
     const section = document.getElementById(sectionId);
@@ -41,15 +40,22 @@ function handleMarkerClick(map, marker) {
             pitch: 0
         });
     } else {
-        isMarkerClick = true; // Activation de l'indicateur
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-        setActiveencart(sectionId, map);
-
-        // Désactiver l'indicateur après un court délai
-        setTimeout(() => {
-            isMarkerClick = false;
-        }, 1000); // Ajustez le délai en fonction de la durée de l'animation
+        map.flyTo({
+            center: [marker.lng, marker.lat],
+            zoom: 16,
+            speed: 1.3,
+            bearing: 0,
+            pitch: 60
+        });
     }
+
+    window.isMarkerClick = true;
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+    setActiveencart(sectionId, map);
+
+    setTimeout(() => {
+        window.isMarkerClick = false;
+    }, 1000);
 }

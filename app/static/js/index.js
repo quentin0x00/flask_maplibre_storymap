@@ -1,4 +1,5 @@
-// index.js
+window.isMarkerClick = false;
+
 import { fetchData } from './data.js';
 import { createEncarts } from './component-encart.js';
 import { createMarkers } from './component-marker.js';
@@ -16,8 +17,7 @@ async function initApp() {
         });
         createMarkers(map, markers);
         createEncarts(encarts, map);
-
     }
 }
 
-initApp();
+initApp();  
