@@ -17,10 +17,10 @@ export function createEncarts(encarts, map) {
                         ${encart.skills.map(skill => `<span class="skill">${skill.trim()}</span>`).join('')}
                     </div>
                 </div>` : ''}
-            ${encart.link && encart.link_alias ? `
-                <div class="encart-champ">
-                    <p><a href="${encart.link}" target="_blank">Visiter le site</a></p>
-                </div>` : ''}
+        ${encart.link && encart.link_alias ? `
+            <div class="encart-champ">
+                <p><a href="${encart.link}" target="_blank">Visiter le site</a></p>
+            </div>` : ''}
             <div class="navigation-buttons">
                 ${index !== 0 ? `<button class="prev-button" data-section-id="${encart.id}">← Précédent</button>` : ''}
                 ${index !== encarts.length - 1 ? `<button class="next-button" data-section-id="${encart.id}">Suivant →</button>` : ''}

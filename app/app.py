@@ -1,8 +1,43 @@
 from flask import Flask, render_template, jsonify
 import csv
 
-
 app = Flask(__name__, static_folder='static')
+
+CSV_FILE = 'data.csv'
+
+def service_data():
+    encarts = []
+    markers = []
+    with open(CSV_FILE, 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            encarts.append(extract_encarts(row))
+            markers.append(extract_markers(row))
+    return encarts, markers
+
+def extract_encarts(row):
+    return {
+        'id': row['id'],
+        'title': row['title'],
+        'role': row.get('role', ''),
+        'date': row.get('date', ''),
+        'content': row.get('content', ''),
+        'skills': row.get('skills', '').split(';') if row.get('skills') else [],
+        'link': row.get('link', ''),
+        'link_alias': row.get('link_alias', ''),
+        'border_color': row.get('border_color', ''),
+        'center': [float(row['longitude']), float(row['latitude'])]
+    }
+
+def extract_markers(row):
+    return {
+        'id': row['id'],
+        'lng': float(row['longitude']),
+        'lat': float(row['latitude']),
+        'url_img': row.get('url_img', ''),
+        'border_color': row.get('border_color', ''),
+        'bg_size': row['bg_size']
+    }
 
 
 @app.route('/')
@@ -11,44 +46,16 @@ def index():
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
-    data = service_data()
-    return jsonify(data)
-
-
-CSV_FILE = 'data.csv'
-def service_data():
-    data = []
     try:
-        with open(CSV_FILE, 'r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                extract = {
-                    'id': row['id'],
-                    'title': row['title'],
-                    'role': row.get('role', ''),
-                    'date': row.get('date', ''),
-                    'content': row.get('content', ''),
-                    'skills': row.get('skills', '').split(';') if row.get('skills') else [],
-                    'link': row.get('link', ''),
-                    'link_alias': row.get('link_alias', ''),
-                    'url_img': row.get('url_img', ''),
-                    'border_color': row.get('border_color', ''),
-                    'bearing': float(row.get('bearing', 0)),
-                    'center': [float(row['longitude']), float(row['latitude'])],
-                    'zoom': float(row.get('zoom', 16)),
-                    'pitch': float(row.get('pitch', 0)),
-                    'speed': float(row.get('speed', 1.0)),
-                    'lng': float(row['longitude']),
-                    'lat': float(row['latitude']),
-                    'bg_size': row['bg_size']
-                }
-                data.append(extract)
+        encarts, markers = service_data()
+        return jsonify({'encarts': encarts, 'markers': markers})
     except FileNotFoundError:
         print(f"Le fichier {CSV_FILE} n'a pas été trouvé.")
+        return jsonify({'encarts': [], 'markers': []}), 404
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier CSV: {e}")
+        return jsonify({'encarts': [], 'markers': []}), 500
 
-    return data
 
 if __name__ == '__main__':
     app.run(debug=True)
