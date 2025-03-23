@@ -1,0 +1,140 @@
+// components.js
+export function createEncarts(encarts, map) {
+    const encartContent = document.getElementById('encart-content');
+    encartContent.innerHTML = encarts.map((encart, index) => `
+        <section id="${encart.id}" class="${index === 0 ? 'active first-section' : ''} ${index === encarts.length - 1 ? 'last-section' : ''}" data-border-color="${encart.border_color}">
+            <h3 class="encart-title">${encart.title}</h3>
+            ${encart.role ? `<div class="encart-champ" id="role"><b><p>${encart.role}</p></b></div>` : ''}
+            ${encart.date ? `<div class="encart-champ" id="date"><p>${encart.date}</p></div>` : ''}
+            ${encart.content ? `<div class="encart-champ"><p>${encart.content.replace(/;/g, '<br>')}</p></div>` : ''}
+            ${encart.skills.length ? `
+                <div class="encart-champ">
+                    <div class="skills">
+                        ${encart.skills.map(skill => `<span class="skill">${skill.trim()}</span>`).join('')}
+                    </div>
+                </div>` : ''}
+            ${encart.link && encart.link_alias ? `
+                <div class="encart-champ">
+                    <p><a href="${encart.link}" target="_blank">${encart.link_alias}</a></p>
+                </div>` : ''}
+            <div class="navigation-buttons">
+                ${index !== 0 ? `<button class="prev-button" data-section-id="${encart.id}">← Précédent</button>` : ''}
+                ${index !== encarts.length - 1 ? `<button class="next-button" data-section-id="${encart.id}">Suivant →</button>` : ''}
+                ${index === encarts.length - 1 ? `<button class="first-section-button">Revenir au début ↑</button>` : ''}
+            </div>
+        </section>
+    `).join('');
+
+    applyTitleStyles();
+    setupNavigationButtons(map);
+    setupScrollListener(map);
+}
+
+function applyTitleStyles() {
+    const sections = document.querySelectorAll('section[data-border-color]');
+    sections.forEach(section => {
+        const borderColor = section.getAttribute('data-border-color');
+        const title = section.querySelector('h3.encart-title');
+        if (title && borderColor) {
+            title.style.borderLeft = `8px solid ${borderColor}`;
+            title.style.paddingLeft = `16px`;
+        }
+    });
+}
+
+function setupNavigationButtons(map) {
+    document.querySelectorAll('.prev-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const sectionId = button.getAttribute('data-section-id');
+            scrollToPreviousSection(sectionId, map);
+        });
+    });
+
+    document.querySelectorAll('.next-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const sectionId = button.getAttribute('data-section-id');
+            scrollToNextSection(sectionId, map);
+        });
+    });
+
+    document.querySelector('.first-section-button')?.addEventListener('click', () => scrollToFirstSection(map));
+}
+
+function setupScrollListener(map) {
+    let activeencartName = Object.keys(window.encarts)[0];
+    setActiveencart(activeencartName, map);
+
+    document.getElementById('panneau').onscroll = function () {
+        const encartNames = Object.keys(window.encarts);
+        for (const encartName of encartNames) {
+            if (isElementOnScreen(encartName)) {
+                setActiveencart(encartName, map);
+                break;
+            }
+        }
+    };
+}
+
+function isElementOnScreen(id) {
+    const element = document.getElementById(id);
+    if (!element) return false;
+    const panneauDiv = document.getElementById('panneau');
+    const panneauScrollTop = panneauDiv.scrollTop;
+    const panneauHeight = panneauDiv.clientHeight;
+    const threshold = panneauHeight * 0.2;
+    const elementOffsetTop = element.offsetTop;
+    const elementHeight = element.clientHeight;
+    return elementOffsetTop - panneauScrollTop <= threshold &&
+        elementOffsetTop + elementHeight - panneauScrollTop > threshold;
+}
+
+export function scrollToFirstSection(map) {
+    const firstSection = document.querySelector('section:first-of-type');
+    if (firstSection) {
+        firstSection.scrollIntoView({ behavior: 'instant' });
+        setActiveencart(firstSection.id, map);
+    }
+}
+
+export function scrollToPreviousSection(currentSectionId, map) {
+    const currentSection = document.getElementById(currentSectionId);
+    if (!currentSection) return;
+
+    const prevSection = currentSection.previousElementSibling;
+    if (prevSection && prevSection.tagName === 'SECTION') {
+        prevSection.scrollIntoView({ behavior: 'instant' });
+        setActiveencart(prevSection.id, map);
+    }
+}
+
+export function scrollToNextSection(currentSectionId, map) {
+    const currentSection = document.getElementById(currentSectionId);
+    if (!currentSection) return;
+
+    const nextSection = currentSection.nextElementSibling;
+    if (nextSection && nextSection.tagName === 'SECTION') {
+        nextSection.scrollIntoView({ behavior: 'instant' });
+        setActiveencart(nextSection.id, map);
+    }
+}
+
+export function setActiveencart(encartName, map) {
+    const activeencart = document.querySelector('.active');
+    if (activeencart) {
+        activeencart.classList.remove('active');
+    }
+    const newActiveencart = document.getElementById(encartName);
+    if (newActiveencart) {
+        newActiveencart.classList.add('active');
+        const encartData = window.encarts.find(encart => encart.id === encartName);
+        if (encartData) {
+            map.flyTo({
+                center: [encartData.center[0], encartData.center[1]],
+                zoom: 16,
+                speed: 1.3,
+                bearing: 0,
+                pitch: 60
+            });
+        }
+    }
+}

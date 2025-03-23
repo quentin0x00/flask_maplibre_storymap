@@ -5,25 +5,18 @@
     <meta property="og:description" content="Scroll down through the story and the map will fly to the encart's location." />
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/style.css">>
     <link href="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
-
-    <header> {% include 'navbar.html' %} </header> 
-
+    <header>{% include 'navbar.html' %}</header>
     <div id="map"></div>
-    <div id="panneau"> {% include 'panneau.html' %} </div>
-
+    <div id="panneau">
+        <div id="encart-content"></div>
+    </div>
     <footer><div>© 2025 Quentin Rouquette</div></footer>
 
-<script> 
-    const encarts = JSON.parse('{{ encarts_json | safe }}');
-    const markers = JSON.parse('{{ markers_json | safe }}');
-</script>
-
-<script src="static/js/map.js"></script>
-<script src="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.js"></script>
-
+    <script src="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.js"></script>
+    <script type="module" src="static/js/index.js"></script>
 </body>
 </html>
