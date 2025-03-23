@@ -118,6 +118,7 @@ export function scrollToNextSection(currentSectionId, map) {
     }
 }
 
+// components.js
 export function setActiveencart(encartName, map) {
     const activeencart = document.querySelector('.active');
     if (activeencart) {
@@ -130,10 +131,10 @@ export function setActiveencart(encartName, map) {
         if (encartData) {
             map.flyTo({
                 center: [encartData.center[0], encartData.center[1]],
-                zoom: 16,
-                speed: 1.3,
-                bearing: 0,
-                pitch: 60
+                zoom: encartData.zoom || 16,
+                bearing: encartData.bearing || 0,
+                pitch: encartData.pitch || 60, 
+                speed: encartData.speed || 1.3
             });
         }
     }

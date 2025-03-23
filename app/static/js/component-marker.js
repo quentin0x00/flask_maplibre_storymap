@@ -1,3 +1,5 @@
+import { setActiveencart } from './component-encart.js';
+
 export function createMarkers(map, markers) {
     markers.forEach(marker => {
         const markerElement = createCustomMarker(marker);
@@ -40,13 +42,6 @@ function handleMarkerClick(map, marker) {
         if (section) {
             section.scrollIntoView({ behavior: 'instant' });
         }
-
-        map.flyTo({
-            center: [marker.lng, marker.lat],
-            zoom: 16,
-            speed: 1.3,
-            bearing: 0,
-            pitch: 60
-        });
+        setActiveencart(sectionId, map)
     }
 }
