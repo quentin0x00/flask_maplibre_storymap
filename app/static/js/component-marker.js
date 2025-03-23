@@ -24,6 +24,8 @@ function createCustomMarker(marker) {
     el.style.cursor = 'pointer';
     return el;
 }
+
+let isMarkerClick = false; // Indicateur pour suivre les clics sur les marqueurs
 function handleMarkerClick(map, marker) {
     const sectionId = marker.id;
     const section = document.getElementById(sectionId);
@@ -39,9 +41,15 @@ function handleMarkerClick(map, marker) {
             pitch: 0
         });
     } else {
+        isMarkerClick = true; // Activation de l'indicateur
         if (section) {
-            section.scrollIntoView({ behavior: 'instant' });
+            section.scrollIntoView({ behavior: 'smooth' });
         }
-        setActiveencart(sectionId, map)
+        setActiveencart(sectionId, map);
+
+        // Désactiver l'indicateur après un court délai
+        setTimeout(() => {
+            isMarkerClick = false;
+        }, 1000); // Ajustez le délai en fonction de la durée de l'animation
     }
 }

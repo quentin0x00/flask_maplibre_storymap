@@ -1,4 +1,6 @@
-// components.js
+let currentActiveEncart = null; // Variable pour suivre la section active
+let isMarkerClick = false; // Indicateur pour suivre les clics sur les marqueurs
+
 export function createEncarts(encarts, map) {
     const encartContent = document.getElementById('encart-content');
     encartContent.innerHTML = encarts.map((encart, index) => `
@@ -55,6 +57,8 @@ function setupScrollListener(map) {
     setActiveencart(activeencartName, map);
 
     document.getElementById('panneau').onscroll = function () {
+        if (isMarkerClick) return; // Ne rien faire si l'action provient d'un clic sur un marqueur
+
         const encartNames = Object.keys(window.encarts);
         for (const encartName of encartNames) {
             if (isElementOnScreen(encartName)) {
@@ -81,7 +85,7 @@ function isElementOnScreen(id) {
 export function scrollToFirstSection(map) {
     const firstSection = document.querySelector('section:first-of-type');
     if (firstSection) {
-        firstSection.scrollIntoView({ behavior: 'instant' });
+        firstSection.scrollIntoView({ behavior: 'smooth' });
         setActiveencart(firstSection.id, map);
     }
 }
@@ -92,7 +96,7 @@ export function scrollToPreviousSection(currentSectionId, map) {
 
     const prevSection = currentSection.previousElementSibling;
     if (prevSection && prevSection.tagName === 'SECTION') {
-        prevSection.scrollIntoView({ behavior: 'instant' });
+        prevSection.scrollIntoView({ behavior: 'smooth' });
         setActiveencart(prevSection.id, map);
     }
 }
@@ -103,13 +107,14 @@ export function scrollToNextSection(currentSectionId, map) {
 
     const nextSection = currentSection.nextElementSibling;
     if (nextSection && nextSection.tagName === 'SECTION') {
-        nextSection.scrollIntoView({ behavior: 'instant' });
+        nextSection.scrollIntoView({ behavior: 'smooth' });
         setActiveencart(nextSection.id, map);
     }
 }
 
-// components.js
 export function setActiveencart(encartName, map) {
+    if (currentActiveEncart === encartName) return; // Ne rien faire si la section active n'a pas changé
+
     const activeencart = document.querySelector('.active');
     if (activeencart) {
         activeencart.classList.remove('active');
@@ -117,6 +122,8 @@ export function setActiveencart(encartName, map) {
     const newActiveencart = document.getElementById(encartName);
     if (newActiveencart) {
         newActiveencart.classList.add('active');
+        currentActiveEncart = encartName; // Mettre à jour la section active
+
         const encartData = window.encarts.find(encart => encart.id === encartName);
         if (encartData) {
             map.flyTo({
@@ -128,4 +135,4 @@ export function setActiveencart(encartName, map) {
             });
         }
     }
-}
+}   
