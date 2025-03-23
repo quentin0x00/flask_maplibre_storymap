@@ -14,7 +14,7 @@ export function initMap() {
                     type: 'raster',
                     tiles: ['https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'],
                     tileSize: 256,
-                    attribution: '© <a href="https://carto.com/about-carto/" target="_blank">Carto</a>'
+                    attribution: '©<a href="https://carto.com/about-carto/" target="_blank">Carto</a>'
                 }
             },
             layers: [{
@@ -47,7 +47,7 @@ export function initMap() {
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 80, unit: "metric" }), 'bottom-right');
     map.addControl(new maplibregl.AttributionControl({
         compact: true,
-        customAttribution: ["© <a href='https://maplibre.org/' target='_blank'>MapLibre</a>"]
+        customAttribution: ["©<a href='https://maplibre.org/' target='_blank'>MapLibre</a>"]
     }), 'bottom-left');
 
     return map;
@@ -61,7 +61,7 @@ export function add3DBuildings(map) {
             tiles: ['https://tiles.openfreemap.org/planet/20250129_001002_pt/{z}/{x}/{y}.pbf'],
             minzoom: 13,
             maxzoom: 14,
-            attribution: "© <a href='https://openmaptiles.org/' target='_blank'>OpenMapTiles</a>"
+            attribution: "©<a href='https://openmaptiles.org/' target='_blank'>OpenMapTiles, données OSM</a>"
         });
     }
     map.addLayer({

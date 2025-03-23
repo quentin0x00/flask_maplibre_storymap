@@ -26,6 +26,7 @@ body {
 /*===========*/
 /*   Carte   */
 /*===========*/
+
 #map {
     width: 60%;
     height: calc(100vh - var(--header-height) - var(--footer-height));
@@ -39,6 +40,11 @@ body {
     height: 40vh;
     position: fixed;
     top: var(--header-height);
+
+    .maplibregl-ctrl-attrib.maplibregl-compact-show {
+        max-width: 200px;
+    }
+    
 }
 }
 
@@ -132,10 +138,12 @@ section.active {
 }
 
 section h3 {
+    border-left: 8px solid;
     font-size: 24px;
     margin-bottom: 12px;
     color: var(--color-text);
     font-weight: 600;
+    padding-left: 16px;
 }
 
 .encart-champ {
@@ -209,7 +217,7 @@ section h3 {
     border-radius: 9999px;
     color: #18181b;
     padding: 4px 12px;
-    font-size: 0.85em;
+    font-size: 12px;
     transition: background-color 0.3s ease;
 }
 
@@ -219,12 +227,21 @@ section h3 {
 
 
 @media (max-width: 1300px) {
+    .encart-id-circle {
+        font-size: 12px;
+        width: 40px;
+        height: 20px;
+    }
     section h3 {
-        font-size: 20px;
+        font-size: 18px;
+        padding-left: 8px;
+        border-left: 4px solid;
     }
 
     .encart-champ p {
-        font-size: 14px;
+        font-size: 13px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     .prev-button,
@@ -234,8 +251,13 @@ section h3 {
         font-size: 12px;
     }
 
+    .skills {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
     .skills span {
-        padding: 2px 8px;
+        padding: 0px 4px;
+        font-size: 11px;
     }
 
     section {
