@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         map.flyTo({
             center: ['-1.553603493340308', '47.218599718064844'],
             zoom: 16,
-            speed: 1.3,
+            speed: 1.6,
             bearing: 0,
             pitch: 60
         });

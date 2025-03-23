@@ -1,9 +1,9 @@
     {% for encart in encart_content %}
-    <section id="{{ encart.id }}" class="{{ 'active first-section' if loop.first else '' }}">
-        <h3>{{ encart.title }}</h3>
+    <section id="{{ encart.id }}" class="{{ 'active first-section' if loop.first else '' }} {{ 'last-section' if loop.last else '' }}" data-border-color="{{ encart.border_color }}">
+        <h3 class="encart-title">{{ encart.title }}</h3>
 
         {% if encart.role %}
-        <div class="encart-champ">
+        <div class="encart-champ" id="role">
             <b><p>{{ encart.role }}</p></b>
         </div>
         {% endif %}
@@ -51,3 +51,19 @@
         
     </section>
     {% endfor %}
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section[data-border-color]');
+    sections.forEach(function(section) {
+        const borderColor = section.getAttribute('data-border-color');
+        const title = section.querySelector('h3.encart-title');
+        
+        if (title && borderColor) {
+            title.style.borderLeft = `8px solid ${borderColor}`;
+            title.style.paddingLeft = `16px`;
+        }
+    });
+});
+      </script>
