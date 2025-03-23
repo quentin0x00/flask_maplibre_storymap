@@ -23,7 +23,11 @@ export function createEncarts(encarts, map) {
             </div>` : ''}
             <div class="navigation-buttons">
                 ${index !== 0 ? `<button class="prev-button" data-section-id="${encart.id}">← Précédent</button>` : ''}
-                ${index !== encarts.length - 1 ? `<button class="next-button" data-section-id="${encart.id}">Suivant →</button>` : ''}
+                ${index !== encarts.length - 1 ? `
+                    <button class="next-button" data-section-id="${encart.id}">
+                        ${index === 0 ? 'Voir le parcours →' : 'Suivant →'}
+                    </button>
+                ` : ''}
                 ${index === encarts.length - 1 ? `<button class="first-section-button">Revenir au début ↑</button>` : ''}
             </div>
         </section>

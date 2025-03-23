@@ -8,6 +8,5 @@ export async function fetchData() {
         return { encarts, markers };
     } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
-        return { encarts: [], markers: [] };
     }
 }
