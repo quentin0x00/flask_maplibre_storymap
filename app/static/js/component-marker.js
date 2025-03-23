@@ -5,17 +5,13 @@ export function createMarkers(map, markers) {
         const markerElement = createCustomMarker(marker);
         const popup = createPopup(marker, index, markers.length);
 
-        // Ajouter le popup au survol
         markerElement.addEventListener('mouseenter', () => {
             popup.setLngLat([marker.lng, marker.lat]).addTo(map);
         });
-
-        // Supprimer le popup quand on quitte le marqueur
         markerElement.addEventListener('mouseleave', () => {
             popup.remove();
         });
 
-        // Gérer le clic sur le marqueur
         markerElement.addEventListener('click', () => handleMarkerClick(map, marker));
 
         new maplibregl.Marker({ element: markerElement })
@@ -42,34 +38,45 @@ function createCustomMarker(marker) {
 function createPopup(marker, index, totalMarkers) {
     const popupContent = document.createElement('div');
     
-    // Créer un span pour le titre
     const titleSpan = document.createElement('span');
-    titleSpan.textContent = `${marker.title_popup} `; // Titre du marqueur
-    titleSpan.style.color = 'black'; // Couleur du texte
-    titleSpan.style.fontWeight = 'bold'; // Couleur du texte
-    titleSpan.style.fontFamily = 'Arial'; // Couleur du texte
+    titleSpan.textContent = `${marker.title_popup} `;
+    titleSpan.style.color = 'black';
+    titleSpan.style.fontWeight = 'bold';
+    titleSpan.style.fontFamily = 'Arial';
+    titleSpan.style.fontSize = '14px';
 
-    // Créer un span pour l'index et le total
     const indexSpan = document.createElement('span');
     indexSpan.textContent = `${index + 1}/${totalMarkers}`;
-    indexSpan.style.backgroundColor = marker.border_color; // Couleur de fond dynamique
-    indexSpan.style.color = 'white'; // Couleur du texte
-    indexSpan.style.padding = '2px 6px'; // Padding pour améliorer l'apparence
-    indexSpan.style.borderRadius = '12px'; // Coins arrondis
-    indexSpan.style.marginLeft = '4px'; // Espacement entre le titre et l'index
-    indexSpan.style.fontWeight = 'bold'; // Couleur du texte
-    indexSpan.style.fontFamily = 'Arial'; // Couleur du texte
-    
+    indexSpan.style.backgroundColor = marker.border_color;
+    indexSpan.style.color = 'white';
+    indexSpan.style.padding = '2px 6px';
+    indexSpan.style.borderRadius = '12px';
+    indexSpan.style.marginLeft = '4px';
+    indexSpan.style.fontWeight = 'bold';
+    indexSpan.style.fontFamily = 'Arial';
+    indexSpan.style.fontSize = '14px';
 
-    // Ajouter les spans au contenu du popup
     popupContent.appendChild(titleSpan);
     popupContent.appendChild(indexSpan);
 
+    if (marker.date) {
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = `\n${marker.date}`;
+        dateSpan.style.color = 'black';
+        dateSpan.style.fontFamily = 'Arial';
+        dateSpan.style.fontSize = '14px';
+        dateSpan.style.whiteSpace = 'pre-line';
+
+        popupContent.appendChild(dateSpan);
+    }
+
     return new maplibregl.Popup({
-        closeButton: false, // Désactiver le bouton de fermeture
-        closeOnClick: false // Ne pas fermer le popup au clic
+        closeButton: false,
+        closeOnClick: false
     }).setDOMContent(popupContent);
 }
+
+
 function handleMarkerClick(map, marker) {
     const sectionId = marker.id;
     const section = document.getElementById(sectionId);

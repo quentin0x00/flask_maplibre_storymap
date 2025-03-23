@@ -26,7 +26,11 @@ def extract_encarts(row):
         'link': row.get('link', ''),
         'link_alias': row.get('link_alias', ''),
         'border_color': row.get('border_color', ''),
-        'center': [float(row['longitude']), float(row['latitude'])]
+        'center': [float(row['longitude']), float(row['latitude'])],
+        'zoom': row['zoom'],
+        'pitch':row['pitch'],
+        'speed':row['speed'],
+        'bearing':row['bearing']
     }
 
 def extract_markers(row):
@@ -37,7 +41,12 @@ def extract_markers(row):
         'url_img': row.get('url_img', ''),
         'border_color': row.get('border_color', ''),
         'bg_size': row['bg_size'],
-        'title_popup' : row['title_popup']
+        'title_popup' : row['title_popup'],
+        'zoom': row['zoom'],
+        'pitch':row['pitch'],
+        'speed':row['speed'],
+        'bearing':row['bearing'],
+        'date':row['date']
     }
 
 
