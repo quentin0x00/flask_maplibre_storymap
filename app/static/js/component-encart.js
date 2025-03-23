@@ -25,7 +25,7 @@ export function createEncarts(encarts, map) {
                 ${index !== 0 ? `<button class="prev-button" data-section-id="${encart.id}">← Précédent</button>` : ''}
                 ${index !== encarts.length - 1 ? `
                     <button class="next-button" data-section-id="${encart.id}">
-                        ${index === 0 ? 'Voir le parcours →' : 'Suivant →'}
+                        ${index === 0 ? 'Remonter le parcours →' : 'Suivant →'}
                     </button>
                 ` : ''}
                 ${index === encarts.length - 1 ? `<button class="first-section-button">Revenir au début ↑</button>` : ''}
