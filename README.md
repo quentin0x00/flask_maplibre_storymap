@@ -6,8 +6,8 @@ Une application minimaliste pour valoriser des données géo grâce à une story
 
 ### 1. Notes
 
-- `app.py` utilise ici un fichier CSV qui contient la totalité des données et des parametres des markers/encarts associés. Les routes peuvent facilement être modifié pour supporter d'autres formats (e.g. GeoJSON) ou se connecter à une base de données PostgreSQL (voir [documentation Flask](https://flask.palletsprojects.com/en/stable/)).
-- Maplibre est ici récupéré via CDN pour un usage immédiat. Si vous préférez une installation locale, vous pouvez utiliser npm pour installer MapLibre.
+- `app.py` utilise ici un fichier CSV qui contient la totalité des données et des parametres des markers/encarts associés. Peut être modifiées pour supporter d'autres formats (e.g. GeoJSON) ou se connecter à une base de données PostgreSQL (voir [documentation Flask](https://flask.palletsprojects.com/en/stable/)).
+- Maplibre est ici récupéré via CDN pour un usage immédiat. Pour une installation locale, vous pouvez utiliser npm.
 
 ### 2. Récupération du dépôt
 
