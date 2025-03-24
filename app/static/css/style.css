@@ -41,9 +41,9 @@ body {
     position: fixed;
     top: var(--header-height);
 
-    .maplibregl-ctrl-attrib.maplibregl-compact-show {
+    /* .maplibregl-ctrl-attrib.maplibregl-compact-show {
         max-width: 200px;
-    }
+    } */
     
 }
 }
@@ -285,7 +285,7 @@ section h3 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     background-color: var(--color-background);
     height: var(--header-height);
-    font-size: 1.2em;
+    font-size: 1em;
 }
   
 .nav {

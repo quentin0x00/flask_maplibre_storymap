@@ -46,7 +46,7 @@ export function initMap() {
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 80, unit: "metric" }), 'bottom-right');
     map.addControl(new maplibregl.AttributionControl({
-        compact: true,
+        compact: false,
         customAttribution: ["©<a href='https://maplibre.org/' target='_blank'>MapLibre</a>"]
     }), 'bottom-left');
 
@@ -61,7 +61,7 @@ export function add3DBuildings(map) {
             tiles: ['https://tiles.openfreemap.org/planet/20250129_001002_pt/{z}/{x}/{y}.pbf'],
             minzoom: 13,
             maxzoom: 14,
-            attribution: "©<a href='https://openmaptiles.org/' target='_blank'>OpenMapTiles, données OSM</a>"
+            attribution: "©<a href='https://openmaptiles.org/' target='_blank'>OpenMapTiles</a>"
         });
     }
     map.addLayer({
