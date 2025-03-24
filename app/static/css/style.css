@@ -227,6 +227,15 @@ section h3 {
 
 
 @media (max-width: 1300px) {
+
+    section.last-section {
+        border-bottom: none;
+        margin-bottom: 10vh;
+    }
+}
+
+
+@media (max-width: 800px) {
     .encart-id-circle {
         font-size: 12px;
         width: 40px;
