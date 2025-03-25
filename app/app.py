@@ -66,12 +66,12 @@ def service_data(rows):
     return data
 
 
-@limiter.limit("60/minute")
+@limiter.limit("10/minute")
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@limiter.limit("60/minute")
+@limiter.limit("10/minute")
 @app.route('/api/data', methods=['GET'])
 def get_data():
     try:
