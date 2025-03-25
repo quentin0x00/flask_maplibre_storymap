@@ -20,7 +20,7 @@ Créez un environnement virtuel Python et installez Flask et ses dépendances :
 ```bash
 #!/bin/bash
 
-cd ~/storymap
+cd storymap/
 
 python3 -m venv env
 source env/bin/activate
@@ -31,7 +31,7 @@ Ainsi que npm et maplibre dans le dossier /static (facultatif si vous passez par
 ```bash
 #!/bin/bash
 
-cd app/static
+cd app/static/
 npm install maplibre-gl
 
 ```
