@@ -4,9 +4,10 @@ export async function fetchData() {
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des données');
         }
-        const { encarts, markers } = await response.json();
-        return { encarts, markers };
+        const { data } = await response.json();
+        return data;
     } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
+        return [];
     }
 }

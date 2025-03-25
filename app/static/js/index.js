@@ -1,22 +1,39 @@
 import { fetchData } from './data.js';
-import { createEncarts } from './component-encart.js';
-import { createMarkers } from './component-marker.js';
-import { initMap, add3DBuildings } from './map.js';
+import { createEncarts } from './composants/panneau.js';
+import { createMarkers } from './composants/marqueurs.js';
+import { initMap, add3DBuildings } from './composants/carte.js';
 
 async function initApp() {
-    const { encarts, markers } = await fetchData();
-    window.encarts = encarts;
-    window.markers = markers;
-    window.isMarkerClick = false;
+    try {
+        const data = await fetchData();
+        window.markersData = data;
 
-    const map = initMap();
-    if (map) {
-        map.once('idle', function () {
+        const map = initMap();
+        map.once('idle', () => {
             add3DBuildings(map);
         });
-        createMarkers(map, markers);
-        createEncarts(encarts, map);
+
+        createMarkers(map, data);
+        createEncarts(data, map);
+
+    } catch (error) {
+        console.error('Erreur lors de l\'initialisation:', error);
+        showError();
     }
 }
 
-initApp();  
+function showError() {
+    const app = document.getElementById('app');
+    if (app) {
+        app.innerHTML = `
+            <div class="error-container">
+                <h2>Erreur de chargement</h2>
+                <p>Impossible de charger les données.</p>
+                <button class="reload-btn">Réessayer</button>
+            </div>
+        `;
+        document.querySelector('.reload-btn').onclick = () => location.reload();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initApp);

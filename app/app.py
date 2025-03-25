@@ -5,67 +5,68 @@ app = Flask(__name__, static_folder='static')
 
 CSV_FILE = 'data.csv'
 
-def service_data():
-    encarts = []
-    markers = []
-    with open(CSV_FILE, 'r', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            encarts.append(extract_encarts(row))
-            markers.append(extract_markers(row))
-    return encarts, markers
+def lire_csv():
+    try:
+        with open(CSV_FILE, 'r', encoding='utf-8') as file:
+            return list(csv.DictReader(file))
+    except FileNotFoundError:
+        raise FileNotFoundError(f"{CSV_FILE} non trouvé.")
+    except Exception as e:
+        raise Exception(f"Erreur de lecture du CSV: {e}")
 
-def extract_encarts(row):
-    return {
-        'id': row['id'],
-        'title': row['title'],
-        'role': row.get('role', ''),
-        'date': row.get('date', ''),
-        'content': row.get('content', ''),
-        'skills': row.get('skills', '').split(';') if row.get('skills') else [],
-        'link': row.get('link', ''),
-        'link_alias': row.get('link_alias', ''),
-        'border_color': row.get('border_color', ''),
-        'center': [float(row['longitude']), float(row['latitude'])],
-        'zoom': row['zoom'],
-        'pitch':row['pitch'],
-        'speed':row['speed'],
-        'bearing':row['bearing']
-    }
+def service_data(rows):
+    data = []
+    for row in rows:
+        data.append({
+            'id': row['id'],
+            'encart': {
+                'title': row['title'],
+                'role': row.get('role', ''),
+                'date': row.get('date', ''),
+                'content': row.get('content', ''),
+                'skills': row.get('skills', '').split(';') if row.get('skills') else [],
+                'link': row.get('link', ''),
+                'link_alias': row.get('link_alias', ''),
+            },
+            'popup': {
+                'title': row['title_popup'],
+                'date': row.get('date', ''),
+            },
+            'geom': {
+                'lng': float(row['longitude']),
+                'lat': float(row['latitude'])
+            },
+            'param': {
+                'img_url': row.get('url_img', ''),
+                'img_fill_size': row['bg_size'],
+                'border_color': row.get('border_color', ''),
+                'zoom': row['zoom'],
+                'pitch': row['pitch'],
+                'speed': row['speed'],
+                'bearing': row['bearing']
+            }
+        })
 
-def extract_markers(row):
-    return {
-        'id': row['id'],
-        'lng': float(row['longitude']),
-        'lat': float(row['latitude']),
-        'url_img': row.get('url_img', ''),
-        'border_color': row.get('border_color', ''),
-        'bg_size': row['bg_size'],
-        'title_popup' : row['title_popup'],
-        'zoom': row['zoom'],
-        'pitch':row['pitch'],
-        'speed':row['speed'],
-        'bearing':row['bearing'],
-        'date':row['date']
-    }
+    return data
+
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/api/data', methods=['GET'])
 def get_data():
     try:
-        encarts, markers = service_data()
-        return jsonify({'encarts': encarts, 'markers': markers})
-    except FileNotFoundError:
-        print(f"Le fichier {CSV_FILE} n'a pas été trouvé.")
-        return jsonify({'encarts': [], 'markers': []}), 404
+        rows = lire_csv()
+        data = service_data(rows)
+        return jsonify({'data': data})
+    except FileNotFoundError as e:
+        return jsonify({'error': str(e)}), 404
     except Exception as e:
-        print(f"Erreur lors de la lecture du fichier CSV: {e}")
-        return jsonify({'encarts': [], 'markers': []}), 500
+        return jsonify({'error': f"Erreur /api/data: {e}"}), 500
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 

@@ -1,10 +1,4 @@
-// map.js
 export function initMap() {
-    if (typeof maplibregl === 'undefined') {
-        console.error('MapLibre GL JS n\'est pas chargé.');
-        return null;
-    }
-
     const map = new maplibregl.Map({
         container: 'map',
         style: {
@@ -42,7 +36,6 @@ export function initMap() {
             pitch: 60
         });
     });
-
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 80, unit: "metric" }), 'bottom-right');
     map.addControl(new maplibregl.AttributionControl({
