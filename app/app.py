@@ -1,9 +1,13 @@
 from flask import Flask, render_template, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import csv
 
 app = Flask(__name__, static_folder='static')
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
+limiter = Limiter(app, key_func=get_remote_address)
 
 CSV_FILE = 'data.csv'
 
@@ -62,10 +66,12 @@ def service_data(rows):
     return data
 
 
+@limiter.limit("60/minute")
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@limiter.limit("60/minute")
 @app.route('/api/data', methods=['GET'])
 def get_data():
     try:
@@ -82,4 +88,4 @@ def get_data():
 
 
 if __name__ == '__main__':
-    app.run(debug=False) 
+    app.run(debug=False)
