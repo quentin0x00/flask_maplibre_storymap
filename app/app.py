@@ -26,14 +26,14 @@ def service_data(rows):
     champs_obligatoires = {'id', 'longitude', 'latitude'}
     for row in rows:
         if not all(champ in row for champ in champs_obligatoires):
-            app.logger.warning(f"champs_obligatoires ('id', 'longitude', 'latitude') non satisfaits. Ligne ignorée: {row}")
+            app.logger.warning(f"Champs obligatoires ('id', 'longitude', 'latitude') non satisfaits. Ligne ignorée: {row}")
             continue
             
         try:
             data.append({
                 'id': str(row['id']),
                 'encart': {
-                    'title': str(row['title']),
+                    'title': str(row.get('title', '')),
                     'role': str(row.get('role', '')),
                     'date': str(row.get('date', '')),
                     'content': str(row.get('content', '')),
@@ -42,7 +42,7 @@ def service_data(rows):
                     'link_alias': str(row.get('link_alias', '')),
                 },
                 'popup': {
-                    'title': str(row['title_popup']),
+                    'title': str(row.get('title_popup','')),
                     'date': str(row.get('date', '')),
                 },
                 'geom': {
