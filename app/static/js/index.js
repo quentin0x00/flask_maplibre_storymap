@@ -3,13 +3,25 @@ import { createEncarts } from './composants/panneau.js';
 import { createMarkers } from './composants/marqueurs.js';
 import { initMap, add3DBuildings } from './composants/carte.js';
 
+const INIT_TIMEOUT = 30000;
+
 async function initFront() {
     try {
-        const data = await fetchData();
-        window.markersData = data;
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout dépassé')), INIT_TIMEOUT));
+        
+        const dataPromise = fetchData();
+        const data = await Promise.race([dataPromise, timeoutPromise]);
+
+        const markersData = Object.freeze(data);
+        Object.defineProperty(window, 'markersData', {
+            value: markersData,
+            writable: false,
+            configurable: false
+        });
 
         const map = initMap();
-        map.once('idle', () => {
+        map.on('load', () => {
             add3DBuildings(map);
         });
 
@@ -22,18 +34,36 @@ async function initFront() {
     }
 }
 
+
 function showError() {
-    const app = document.getElementById('app');
-    if (app) {
-        app.innerHTML = `
-            <div class="error-container">
-                <h2>Erreur de chargement</h2>
-                <p>Impossible de charger les données.</p>
-                <button class="reload-btn">Réessayer</button>
-            </div>
-        `;
-        document.querySelector('.reload-btn').onclick = () => location.reload();
+    const app = document.getElementById('app') || document.body;
+
+    while (app.firstChild) {
+        app.removeChild(app.firstChild);
+    }
+    
+    const errorHTML = `
+        <div class="error-container">
+            <h2>Erreur de chargement</h2>
+            <p>Impossible de charger les données.</p>
+            <button class="reload-btn">Réessayer</button>
+        </div>
+    `;
+    
+    app.insertAdjacentHTML('beforeend', errorHTML);
+    
+    const btn = app.querySelector('.reload-btn');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            window.location.reload(true);
+        });
     }
 }
 
-document.addEventListener('DOMContentLoaded', initFront);
+if (document.readyState !== 'loading') {
+    initFront().catch(console.error);
+} else {
+    document.addEventListener('DOMContentLoaded', () => {
+        initFront().catch(console.error);
+    });
+}

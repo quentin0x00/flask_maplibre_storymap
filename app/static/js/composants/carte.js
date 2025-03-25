@@ -1,3 +1,5 @@
+maplibregl.setWorkerUrl('/static/node_modules/maplibre-gl/dist/maplibre-gl-csp-worker.js');
+
 export function initMap() {
     const map = new maplibregl.Map({
         container: 'map',

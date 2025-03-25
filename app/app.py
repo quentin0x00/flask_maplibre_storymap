@@ -3,6 +3,12 @@ import csv
 
 app = Flask(__name__, static_folder='static')
 
+app.config.update(
+    JSONIFY_PRETTYPRINT_REGULAR=False,
+    SEND_FILE_MAX_AGE_DEFAULT=300,
+)
+
+
 CSV_FILE = 'data.csv'
 
 def lire_csv():
@@ -12,61 +18,73 @@ def lire_csv():
     except FileNotFoundError:
         raise FileNotFoundError(f"{CSV_FILE} non trouvé.")
     except Exception as e:
-        raise Exception(f"Erreur de lecture du CSV: {e}")
+        app.logger.error(f"Erreur de lecture du CSV: {e}")
+        raise
 
 def service_data(rows):
     data = []
+    champs_obligatoires = {'id', 'longitude', 'latitude'}
     for row in rows:
-        data.append({
-            'id': row['id'],
-            'encart': {
-                'title': row['title'],
-                'role': row.get('role', ''),
-                'date': row.get('date', ''),
-                'content': row.get('content', ''),
-                'skills': row.get('skills', '').split(';') if row.get('skills') else [],
-                'link': row.get('link', ''),
-                'link_alias': row.get('link_alias', ''),
-            },
-            'popup': {
-                'title': row['title_popup'],
-                'date': row.get('date', ''),
-            },
-            'geom': {
-                'lng': float(row['longitude']),
-                'lat': float(row['latitude'])
-            },
-            'param': {
-                'img_url': row.get('url_img', ''),
-                'img_fill_size': row['bg_size'],
-                'border_color': row.get('border_color', ''),
-                'zoom': row['zoom'],
-                'pitch': row['pitch'],
-                'speed': row['speed'],
-                'bearing': row['bearing']
-            }
-        })
-
+        if not all(champ in row for champ in champs_obligatoires):
+            app.logger.warning(f"champs_obligatoires ('id', 'longitude', 'latitude') non satisfaits. Ligne ignorée: {row}")
+            continue
+            
+        try:
+            data.append({
+                'id': str(row['id']),
+                'encart': {
+                    'title': str(row['title']),
+                    'role': str(row.get('role', '')),
+                    'date': str(row.get('date', '')),
+                    'content': str(row.get('content', '')),
+                    'skills': [s.strip() for s in row.get('skills', '').split(';') if s.strip()],
+                    'link': str(row.get('link', '')),
+                    'link_alias': str(row.get('link_alias', '')),
+                },
+                'popup': {
+                    'title': str(row['title_popup']),
+                    'date': str(row.get('date', '')),
+                },
+                'geom': {
+                    'lng': float(row['longitude']),
+                    'lat': float(row['latitude'])
+                },
+                'param': {
+                    'img_url': str(row.get('url_img', '')),
+                    'img_fill_size': str(row.get('bg_size', '100%')),
+                    'border_color': str(row.get('border_color', '#000000')),
+                    'zoom': float(row.get('zoom', 14)),
+                    'pitch': float(row.get('pitch', 0)),
+                    'speed': float(row.get('speed', 1.2)),
+                    'bearing': float(row.get('bearing', 0))
+                }
+            })
+        except (ValueError, TypeError) as e:
+            app.logger.error(f"Erreur de format des données: {e} - Ligne: {row}")
+            continue
+            
     return data
-
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/api/data', methods=['GET'])
 def get_data():
     try:
         rows = lire_csv()
         data = service_data(rows)
-        return jsonify({'data': data})
+        response = jsonify({'data': data})
+        response.headers.add('X-Content-Type-Options', 'nosniff')
+        return response
     except FileNotFoundError as e:
-        return jsonify({'error': str(e)}), 404
+        app.logger.error(str(e))
+        return jsonify({'error': 'Données non disponibles'}), 404
     except Exception as e:
-        return jsonify({'error': f"Erreur /api/data: {e}"}), 500
+        app.logger.error(f"Erreur API: {e}")
+        return jsonify({'error': 'Erreur serveur'}), 500
 
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=False) 

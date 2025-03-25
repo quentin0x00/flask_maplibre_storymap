@@ -4,8 +4,22 @@
     <title>Quentin - StoryMap</title>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/css/style.css">
-    <link href="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self';
+                script-src 'self' 'unsafe-inline' http://127.0.0.1:5000/static/;
+                style-src 'self' 'unsafe-inline' http://127.0.0.1:5000/static/;
+                img-src 'self' data: blob: http://127.0.0.1:5000/static/ https://*.cartocdn.com;
+                worker-src 'self' blob:;
+                child-src 'self' blob:;
+                font-src 'self' data: http://127.0.0.1:5000/static/;
+                connect-src 'self' http://127.0.0.1:5000 https://*.cartocdn.com;
+                frame-src 'none';
+                object-src 'none';
+                base-uri 'self';
+                form-action 'self'">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/maplibre-gl/dist/maplibre-gl.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/moi.png') }}" type="image/png">
 </head>
 <body>
     <header>{% include 'navbar.html' %}</header>
@@ -14,8 +28,7 @@
         <div id="encart"></div>
     </div>
     <footer><div>© 2025 Quentin Rouquette</div></footer>
-
-    <script src="https://unpkg.com/maplibre-gl@^5.0.1/dist/maplibre-gl.js"></script>
+    <script src="{{ url_for('static', filename='node_modules/maplibre-gl/dist/maplibre-gl.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

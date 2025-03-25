@@ -115,7 +115,27 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     letter-spacing: 2px;
 }
+.encart-image {
+    width: 100px;
+    height: 100px;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
 
+.encart-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .encart-image {
+        margin: 10px 0 0 0;
+        align-self: center;
+    }
+}
 section.last-section {
     border-bottom: none;
     margin-bottom: 40vh;
