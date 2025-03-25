@@ -1,6 +1,12 @@
+// Var
+const SCROLL_THRESHOLD_RATIO = 0.2;
+const NAVIGATION_LOCK_DURATION = 1000;
+
 let currentActiveEncart = null;
-let isButtonClick= false;
-let isMarkerClick = false; 
+let isTriggerLock = {
+    button: false,
+    marker: false
+};
 
 // Encart actif
 export function setActiveEncart(encartId, map) {
@@ -36,13 +42,13 @@ export function EncartflyToMarker(encartId, map) {
 }
 
 // Activation de l'encart via scroll (sauf si scrollintoview trigger via bouton/marker)
-export function setupScrollNavigation(data, map) {
+export function setupScrollTrigger(data, map) {
     if (data.length === 0) return;
 
     let isScrolling = false;
 
     document.getElementById('panneau').onscroll = function() {
-        if (isMarkerClick || isButtonClick) return;
+        if (isTriggerLock.button || isTriggerLock.marker) return;
 
         if (!isScrolling) {
             isScrolling = true;
@@ -64,7 +70,7 @@ function isElementOnScreen(id) {
     
     const { scrollTop, clientHeight } = document.getElementById('panneau');
     const { offsetTop, clientHeight: elementHeight } = element;
-    const threshold = clientHeight * 0.2;
+    const threshold = clientHeight * SCROLL_THRESHOLD_RATIO;
     
     const elementTop = offsetTop - scrollTop;
     const elementBottom = elementTop + elementHeight;
@@ -78,7 +84,7 @@ export function setupNavigationButtons(map) {
         const btn = e.target.closest('.prev-button, .next-button, .first-section-button');
         if (!btn) return;
 
-        isButtonClick = true;
+        isTriggerLock.button = true;
         
         const currentId = btn.dataset.sectionId;
         let targetSection = null;
@@ -100,15 +106,15 @@ export function setupNavigationButtons(map) {
             targetSection.scrollIntoView({ behavior: 'smooth' });
             
             setTimeout(() => {
-                isButtonClick = false;
-            }, 1000);
+                isTriggerLock.button = false;
+            }, NAVIGATION_LOCK_DURATION);
         }
     });
 }
 
 // Activation de l'encart via marqueur cliqué
 export function handleMarkerClick(item, map) {
-    isMarkerClick = true;
+    isTriggerLock.marker = true;
     flyToMarkerPosition(item, map);
     const section = document.getElementById(item.id);
     if (section) {
@@ -116,11 +122,11 @@ export function handleMarkerClick(item, map) {
     }
     setActiveEncart(item.id, map);
     setTimeout(() => {
-        isMarkerClick = false;
-    }, 1000);
+        isTriggerLock.marker = false;
+    }, NAVIGATION_LOCK_DURATION);
 }
 
-// Fly to position/dézoom depuis marqueur cliqué
+// Fly to marqueur/dézoom, depuis marqueur cliqué
 function flyToMarkerPosition(item, map) {
     const currentZoom = map.getZoom();
     const activeSection = document.querySelector('.active');

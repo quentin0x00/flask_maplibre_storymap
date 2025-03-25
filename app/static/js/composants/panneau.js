@@ -1,4 +1,4 @@
-import { setupScrollNavigation, setActiveEncart, setupNavigationButtons } from '../navigation.js';
+import { setupScrollTrigger, setActiveEncart, setupNavigationButtons } from '../navigation.js';
 
 export function createEncarts(data, map) {
     if (!data || data.length === 0) return;
@@ -7,7 +7,7 @@ export function createEncarts(data, map) {
     encartContent.innerHTML = data.map((item, index) => createEncartHTML(item, index, data)).join('');
 
     setupNavigationButtons(map);
-    setupScrollNavigation(data, map);
+    setupScrollTrigger(data, map);
     setActiveEncart(data[0].id, map);
 }
 
