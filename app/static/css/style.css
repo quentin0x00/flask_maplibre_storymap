@@ -1,6 +1,6 @@
-* { font-family: 'Deja Vu Serif', serif; }
-html { height: 100%; }
+* { font-family: 'Georgia', serif; }
 
+html { height: 100%; }
 body { 
     margin: 0; 
     padding: 0; 
@@ -71,7 +71,6 @@ body {
 #panneau {
     width: 40%;
     margin-left: 60%;
-    font-family: sans-serif;
     overflow-y: scroll;
     background-color: #fafafa;
     height: calc(100vh - 8vh - 5vh);

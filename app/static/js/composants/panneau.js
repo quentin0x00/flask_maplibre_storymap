@@ -3,6 +3,7 @@ import { setupScrollTrigger, setActiveEncart, setupNavigationButtons } from '../
 export function createEncarts(data, map) {
     if (!data || data.length === 0) return;
     
+    // Note: content fait <br> sur séparateur ';'
     document.getElementById('encart').innerHTML = data.map((item, index) => `
         <section id="${item.id}" 
                 class="${index === 0 ? 'active first-section' : ''}${index === data.length - 1 ? ' last-section' : ''}" data-border-color="${item.param.border_color}">
@@ -22,7 +23,7 @@ export function createEncarts(data, map) {
             ` : ''}
             ${item.encart.link && item.encart.link_alias ? `
                 <div class="encart-champ">
-                    <p><a href="${item.encart.link}" target="_blank">${item.encart.link_alias}</a></p>
+                    <p><a href="${item.encart.link}" target="_blank">Visiter le site</a></p>
                 </div>
             ` : ''}
             <div class="navigation-buttons">

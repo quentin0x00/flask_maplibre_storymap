@@ -27,15 +27,6 @@ export function initMap() {
         map.setProjection({ type: 'globe' });
     });
 
-    map.on('load', () => {
-        map.flyTo({
-            center: ['-1.553603493340308', '47.218599718064844'],
-            zoom: 16,
-            speed: 1.6,
-            bearing: 0,
-            pitch: 60
-        });
-    });
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.addControl(new maplibregl.ScaleControl({ maxWidth: 80, unit: "metric" }), 'bottom-right');
     map.addControl(new maplibregl.AttributionControl({

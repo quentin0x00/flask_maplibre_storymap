@@ -1,8 +1,6 @@
 export function createPopup(item, index, totalMarkers) {
     const popupContent = document.createElement('div');
     popupContent.className = 'custom-popup';
-    
-    // Construction du HTML en une seule opération
     popupContent.innerHTML = `
         <div class="popup-header">
             <span class="popup-title">${item.popup.title}</span>

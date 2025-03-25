@@ -3,7 +3,7 @@ import { createEncarts } from './composants/panneau.js';
 import { createMarkers } from './composants/marqueurs.js';
 import { initMap, add3DBuildings } from './composants/carte.js';
 
-async function initApp() {
+async function initFront() {
     try {
         const data = await fetchData();
         window.markersData = data;
@@ -36,4 +36,4 @@ function showError() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', initFront);
