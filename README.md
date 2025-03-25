@@ -38,7 +38,7 @@ npm install maplibre-gl
 
 ### 3. Démarrage du serveur
 
-Lancez le serveur Guvicorn pour démarrer l'application (le serveur écoute par défaut sur le port 5000) :
+Lancez le serveur gunicorn pour démarrer l'application (le serveur écoute par défaut sur le port 5000) :
 
 ```bash
 $ cd app
