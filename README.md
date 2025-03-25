@@ -50,7 +50,7 @@ $ cd app
 $ python3 app.py
 ```
 
-### 4. Notes
+## Notes
 
 - `app.py` utilise ici un fichier CSV qui contient la totalité des données et des parametres des markers/encarts associés. Si vous avez davantages de données, je vous recommande de connecter une base Postgres (voir [documentation Flask](https://flask.palletsprojects.com/en/stable/)).
 - Maplibre est ici installé via npm. Pour un usage immédiat, vous pouvez utiliser le CDN :
