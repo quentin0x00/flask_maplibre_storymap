@@ -23,8 +23,8 @@ export function createMarkers(map, data) {
 function createCustomMarker(item) {
     const el = document.createElement('div');
     Object.assign(el.style, {
-        width: '60px',
-        height: '60px',
+        width: '50px',
+        height: '50px',
         borderRadius: '50%',
         border: `6px solid ${item.param.border_color}`,
         backgroundImage: `url('${item.param.img_url}')`,
