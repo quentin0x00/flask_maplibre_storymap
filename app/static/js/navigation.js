@@ -78,7 +78,7 @@ function isElementOnScreen(id) {
     return elementTop <= threshold && elementBottom > threshold;
 }
 
-// Activation de l'encart via boutons
+// Activation de l'encart via boutons encart
 export function setupNavigationButtons(map) {
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.prev-button, .next-button, .first-section-button');

@@ -34,6 +34,37 @@ body {
     } */
 }
 
+
+
+/*===========*/
+/*   Popup   */
+/*===========*/
+.custom-popup {
+    font-size: 12px;
+    color: black;
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+}
+
+.popup-title {
+    font-weight: bold;
+}
+
+.popup-counter {
+    color: white;
+    padding: 2px 6px;
+    border-radius: 12px;
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+.popup-date {
+    white-space: pre-line;
+}
+
 /*=============*/
 /*   Panneau   */
 /*=============*/
