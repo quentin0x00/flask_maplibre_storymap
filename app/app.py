@@ -1,13 +1,9 @@
 from flask import Flask, render_template, jsonify
+from werkzeug.middleware.proxy_fix import ProxyFix
 import csv
 
 app = Flask(__name__, static_folder='static')
-
-app.config.update(
-    JSONIFY_PRETTYPRINT_REGULAR=False,
-    SEND_FILE_MAX_AGE_DEFAULT=300,
-)
-
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 CSV_FILE = 'data.csv'
 
@@ -76,7 +72,6 @@ def get_data():
         rows = lire_csv()
         data = service_data(rows)
         response = jsonify({'data': data})
-        response.headers.add('X-Content-Type-Options', 'nosniff')
         return response
     except FileNotFoundError as e:
         app.logger.error(str(e))
