@@ -22,11 +22,6 @@ export function createEncarts(data, map) {
                             </div>
                         </div>
                     ` : ''}
-                    ${item.encart.link && item.encart.link_alias ? `
-                        <div class="encart-champ">
-                            <p><a href="${item.encart.link}" target="_blank">Visiter le site</a></p>
-                        </div>
-                    ` : ''}
                 </div>
             </div>
 
@@ -45,4 +40,20 @@ export function createEncarts(data, map) {
     setupNavigationButtons(map);
     setupScrollTrigger(data, map);
     setActiveEncart(data[0].id, map);
+
+
+    // Ajuster la marge inférieure de la dernière section
+    function adjustMargin() {
+        const lastSection = document.querySelector('.last-section');
+        const panneau = document.getElementById('panneau');
+        
+        if (lastSection && panneau) {
+            const sectionHeight = lastSection.offsetHeight;
+            const panneauHeight = panneau.offsetHeight;
+            const marginBottom = panneauHeight - sectionHeight;
+            lastSection.style.marginBottom = `${marginBottom}px`;
+        }
+    }
+    adjustMargin(); 
+    window.addEventListener('resize', adjustMargin);
 }

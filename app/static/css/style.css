@@ -17,7 +17,7 @@ body {
 
 #map {
     width: 60%;
-    height: calc(100vh - 60px - 40px);
+    height: calc(100vh - 100px);
     position: fixed;
     top: 60px;
 }
@@ -29,12 +29,7 @@ body {
     position: fixed;
     top: 60px;
     }
-    /* .maplibregl-ctrl-attrib.maplibregl-compact-show {
-        max-width: 200px;
-    } */
 }
-
-
 
 /*===========*/
 /*   Popup   */
@@ -73,7 +68,7 @@ body {
     margin-left: 60%;
     overflow-y: scroll;
     background-color: #fafafa;
-    height: calc(100vh - 60px - 40px);
+    height: calc(100vh - 100px);
     direction: rtl;
     top: 60px;
     position: fixed;
@@ -115,26 +110,6 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     letter-spacing: 2px;
 }
-.encart-image {
-    width: 100px;
-    height: 100px;
-    margin-left: 15px;
-    flex-shrink: 0;
-}
-
-.encart-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
-
-section.last-section {
-    border-bottom: none;
-    margin-bottom: 40vh;
-}
-
 
 .first-section .navigation-buttons {
     justify-content: flex-end;
@@ -217,11 +192,11 @@ section h3 {
 .next-button,
 .first-section-button {
     background-color: #fafafa;
-    border: 1px solid #ddd;
+    border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 14px;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     color: #333;
 }
@@ -237,7 +212,7 @@ section h3 {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     padding-left: 24px;
 }
 
@@ -255,16 +230,7 @@ section h3 {
 }
 
 
-@media (max-width: 1300px) {
-
-    section.last-section {
-        border-bottom: none;
-        margin-bottom: 10vh;
-    }
-}
-
-
-@media (max-width: 800px) {
+@media (max-width: 500px) {
     .encart-id-circle {
         font-size: 12px;
         width: 40px;
@@ -280,6 +246,7 @@ section h3 {
         font-size: 13px;
         padding-left: 12px;
         padding-right: 12px;
+        line-height: 1.4;
     }
 
     .encart-champ  {
@@ -295,6 +262,7 @@ section h3 {
     .skills {
         padding-left: 12px;
         padding-right: 12px;
+        margin-bottom: 12px;
     }
     .skills span {
         padding: 0px 4px;
@@ -304,11 +272,6 @@ section h3 {
     section {
         min-height: auto;
         padding: 15px 20px;
-    }
-
-    section.last-section {
-        border-bottom: none;
-        margin-bottom: 10vh;
     }
 }
 
@@ -437,7 +400,6 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* border-top: 1px solid #ddd; */
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 0.75rem;
     color: #71717a;
