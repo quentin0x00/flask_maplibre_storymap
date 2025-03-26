@@ -25,7 +25,7 @@ body {
 @media (max-width: 1300px) {
     #map {
     width: 100%;
-    height: 40vh;
+    height: 35vh;
     position: fixed;
     top: 60px;
     }
@@ -73,9 +73,9 @@ body {
     margin-left: 60%;
     overflow-y: scroll;
     background-color: #fafafa;
-    height: calc(100vh - 8vh - 40px);
+    height: calc(100vh - 60px - 40px);
     direction: rtl;
-    top: 8vh;
+    top: 60px;
     position: fixed;
 }
 
@@ -90,7 +90,7 @@ body {
         margin-left: 0;
         height: calc(55vh - 40px);
         position: fixed;
-        top: calc(8vh + 40vh);
+        top: calc(60px + 35vh);
         overflow-y: auto;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
@@ -288,6 +288,9 @@ section h3 {
         padding-right: 12px;
     }
 
+    .encart-champ  {
+        margin-bottom: 0px;
+    }
     .prev-button,
     .next-button,
     .first-section-button {
