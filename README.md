@@ -2,6 +2,9 @@
 
 Une application minimaliste pour valoriser des données géo grâce à une storymap. Créée avec Flask et MapLibre.
 
+Demo utilisant mon parcours pro : https://quentin-storymap.onrender.com/
+*(J'utilise une instance gratuite de Render qui se met en veille après 30 min d'inactivité. L'appli peut prendre un peu de temps pour se réveiller.)*
+
 ## Installation
 
 
@@ -18,8 +21,6 @@ $ git clone https://github.com/quentin0x00/flask_maplibre_storymap
 Créez un environnement virtuel Python et installez Flask et Gunicorn :
 
 ```bash
-#!/bin/bash
-
 cd storymap/
 
 python3 -m venv env
