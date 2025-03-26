@@ -26,10 +26,10 @@ export function createEncarts(data, map) {
             </div>
 
             <div class="navigation-buttons">
-                ${index !== 0 ? `<button class="prev-button" data-section-id="${item.id}">← Précédent</button>` : ''}
+                ${index !== 0 ? `<button class="prev-button" data-section-id="${item.id}">↑ Précédent</button>` : ''}
                 ${index !== data.length - 1 ? `
                     <button class="next-button" data-section-id="${item.id}">
-                        ${index === 0 ? "Parcourir l'historique →" : 'Suivant →'}
+                        ${index === 0 ? "Parcourir l'historique ↓" : 'Suivant ↓'}
                     </button>
                 ` : ''}
                 ${index === data.length - 1 ? `<button class="first-section-button">Revenir au début ↑</button>` : ''}
