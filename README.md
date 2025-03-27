@@ -2,8 +2,7 @@
 
 Une application minimaliste pour valoriser des données géo grâce à une storymap. Créée avec Flask et MapLibre.
 
-Demo utilisant mon parcours pro : https://quentin-storymap.onrender.com/
-*(J'utilise une instance gratuite de Render qui se met en veille après 30 min d'inactivité. L'appli peut prendre un peu de temps pour se réveiller.)*
+Demo utilisant mon parcours pro : https://app.quentinrouquette.fr/
 
 ## Installation
 
@@ -36,11 +35,6 @@ Lancez le serveur Gunicorn pour démarrer l'application :
 ```bash
 cd app
 gunicorn -w 4 -b 0.0.0.0:5000 app:app
-```
-Ou directement via Flask (en développement) :
-```bash
-$ cd app
-$ python3 app.py
 ```
 
 ## Notes
