@@ -39,4 +39,4 @@ gunicorn app:app
 
 ## Notes
 
-- `app.py` utilise ici un fichier CSV qui contient la totalité des données et des parametres des markers/encarts associés. Si vous avez davantage de données, je vous recommande d'utiliser Postgres avec SQLAlchemy (voir [documentation Flask-sqlalchemy](https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/)).
+- `app.py` utilise ici un fichier CSV qui contient la totalité des données et des parametres des markers/encarts associés. Si vous avez davantage de données, je vous recommande d'utiliser Postgres avec SQLAlchemy (voir [documentation Flask-SQLAlchemy](https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/)).
