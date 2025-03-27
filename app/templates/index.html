@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Security-Policy" 
         content="default-src 'self';
-                script-src 'self' 'unsafe-inline' http://127.0.0.1:5000/static/ https://unpkg.com;
-                style-src 'self' 'unsafe-inline' http://127.0.0.1:5000/static/ https://unpkg.com;
-                img-src 'self' data: blob: http://127.0.0.1:5000/static/ https://*.cartocdn.com https://unpkg.com;
+                script-src 'self' 'unsafe-inline' https://127.0.0.1:5000/static/ https://unpkg.com;
+                style-src 'self' 'unsafe-inline' https://127.0.0.1:5000/static/ https://unpkg.com;
+                img-src 'self' data: blob: https://127.0.0.1:5000/static/ https://*.cartocdn.com https://unpkg.com;
                 worker-src 'self' blob:;
                 child-src 'self' blob:;
-                font-src 'self' data: http://127.0.0.1:5000/static/;
-                connect-src 'self' http://127.0.0.1:5000 https://*.cartocdn.com https://unpkg.com https://tiles.openfreemap.org;;
+                font-src 'self' data: https://127.0.0.1:5000/static/;
+                connect-src 'self' https://127.0.0.1:5000 https://*.cartocdn.com https://unpkg.com https://tiles.openfreemap.org;;
                 frame-src 'none';
                 object-src 'none';
                 base-uri 'self';
                 form-action 'self'">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://unpkg.com/maplibre-gl@^5.2.0/dist/maplibre-gl.css" rel="stylesheet" />
-    <link rel="icon" href="data:imaage/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+    <link rel="icon" href="data:imaage/svg+xml,<svg xmlns=%22https://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
 </head>
 <body>
     <header>{% include 'navbar.html' %}</header>
