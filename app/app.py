@@ -1,11 +1,13 @@
 from flask import Flask, render_template, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 import csv
+import os
 
 app = Flask(__name__, static_folder='static')
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
-CSV_FILE = 'data.csv'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_FILE = os.path.join(BASE_DIR, 'app', 'data.csv')
 
 def lire_csv():
     try:
