@@ -7,13 +7,10 @@ app = Flask(__name__, static_folder='static')
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 @app.before_request
-def before_request():
-    # Check if the app is in production and the request is using HTTP
-    if app.env == 'production' and not request.is_secure:
-        # Redirect the request to the HTTPS version
-        url = request.url.replace("http://", "https://", 1)
+def force_https():
+    if not request.is_secure:
+        url = request.url.replace('http://', 'https://', 1)
         return redirect(url, code=301)
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_FILE = os.path.join(BASE_DIR, 'app', 'data.csv')
