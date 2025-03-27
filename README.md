@@ -34,7 +34,7 @@ Lancez le serveur Gunicorn pour démarrer l'application :
 
 ```bash
 cd app
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
+gunicorn app:app
 ```
 
 ## Notes
