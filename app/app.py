@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, url_for, request
+from flask import Flask, render_template, jsonify, redirect, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 import csv
 import os
@@ -8,8 +8,12 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 @app.before_request
 def before_request():
-    if not app.debug and not app.testing and request.headers.get('X-Forwarded-Proto') == 'http':
-        return redirect(request.url.replace('http://', 'https://', 1))
+    # Check if the app is in production and the request is using HTTP
+    if app.env == 'production' and not request.is_secure:
+        # Redirect the request to the HTTPS version
+        url = request.url.replace("http://", "https://", 1)
+        return redirect(url, code=301)
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_FILE = os.path.join(BASE_DIR, 'app', 'data.csv')
