@@ -8,6 +8,20 @@ let isTriggerLock = {
     marker: false
 };
 
+// Flyto générique
+function customFlyTo(map, item, options = {}) {
+    const defaultOptions = {
+        center: [item.geom.lng, item.geom.lat],
+        zoom: item.param.zoom,
+        speed: item.param.speed,
+        bearing: item.param.bearing,
+        pitch: item.param.pitch
+    };
+    
+    map.flyTo({...defaultOptions, ...options});
+}
+
+
 // Encart actif
 export function setActiveEncart(encartId, map) {
     if (currentActiveEncart === encartId) return;
@@ -31,14 +45,7 @@ export function setActiveEncart(encartId, map) {
 export function EncartflyToMarker(encartId, map) {
     const item = window.markersData.find(d => d.id === encartId);
     if (!item) return;
-
-    map.flyTo({
-        center: [item.geom.lng, item.geom.lat],
-        zoom: item.param.zoom,
-        bearing: item.param.bearing,
-        pitch: item.param.pitch,
-        speed: item.param.speed
-    });
+    customFlyTo(map, item);
 }
 
 // Activation de l'encart via scroll (sauf si scrollintoview trigger via bouton/marker)
@@ -132,20 +139,13 @@ function flyToMarkerPosition(item, map) {
     const activeSection = document.querySelector('.active');
 
     if (activeSection && activeSection.id === item.id && currentZoom > 15) {
-        map.flyTo({
-            center: [item.geom.lng, item.geom.lat],
+        customFlyTo(map, item, {
             zoom: 3,
             speed: 1.3,
             bearing: 0,
             pitch: 0
         });
     } else {
-        map.flyTo({
-            center: [item.geom.lng, item.geom.lat],
-            zoom: item.param.zoom,
-            speed: item.param.speed,
-            bearing: item.param.bearing,
-            pitch: item.param.pitch
-        });
+        customFlyTo(map, item);
     }
 }
