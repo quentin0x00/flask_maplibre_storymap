@@ -22,7 +22,8 @@ body {
     top: 60px;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1300px) and (orientation:portrait),
+(max-width: 400px) and (orientation: landscape)  {
     #map {
     width: 100%;
     height: 35vh;
@@ -79,7 +80,8 @@ body {
     text-align: left;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1300px) and (orientation: portrait),
+       (max-width: 400px) and (orientation: landscape) {
     #panneau {
         width: 100%;
         margin-left: 0;
@@ -230,7 +232,8 @@ section h3 {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 500px) and (orientation:portrait),
+(max-width: 1300px) and (orientation:landscape) {
     .encart-id-circle {
         font-size: 12px;
         width: 40px;
