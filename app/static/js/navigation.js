@@ -20,6 +20,13 @@ function customFlyTo(map, item, options = {}) {
     
     map.flyTo({...defaultOptions, ...options});
 }
+const MARKER_DEZOOM: {
+        DEFAULT_ZOOM: 3,
+        DEFAULT_SPEED: 1.3,
+        DEFAULT_BEARING: 0,
+        DEFAULT_PITCH: 0,
+        ZOOM_THRESHOLD: 15
+    }
 
 
 // Encart actif
@@ -138,12 +145,12 @@ function flyToMarkerPosition(item, map) {
     const currentZoom = map.getZoom();
     const activeSection = document.querySelector('.active');
 
-    if (activeSection && activeSection.id === item.id && currentZoom > 15) {
+    if (activeSection && activeSection.id === item.id && currentZoom > MARKER_DEZOOM.ZOOM_THRESHOLD) {
         customFlyTo(map, item, {
-            zoom: 3,
-            speed: 1.3,
-            bearing: 0,
-            pitch: 0
+            zoom: MARKER_DEZOOM.DEFAULT_ZOOM,
+            speed: MARKER_DEZOOM.DEFAULT_SPEED,
+            bearing: MARKER_DEZOOM.DEFAULT_BEARING,
+            pitch: MARKER_DEZOOM.DEFAULT_PITCH
         });
     } else {
         customFlyTo(map, item);
