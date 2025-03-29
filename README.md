@@ -1,6 +1,6 @@
 # StoryMap
 
-Une application minimaliste pour valoriser des données géo grâce à une storymap. Créée avec Flask et MapLibre.
+Une application minimaliste pour valoriser des données géo grâce à une storymap. Créée avec Flask et MapLibre ; hébergée sur Heroku.
 
 Demo utilisant mon parcours pro : https://app.quentinrouquette.fr/
 
