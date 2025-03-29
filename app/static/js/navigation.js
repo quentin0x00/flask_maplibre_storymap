@@ -20,14 +20,13 @@ function customFlyTo(map, item, options = {}) {
     
     map.flyTo({...defaultOptions, ...options});
 }
-const MARKER_DEZOOM: {
-        DEFAULT_ZOOM: 3,
-        DEFAULT_SPEED: 1.3,
-        DEFAULT_BEARING: 0,
-        DEFAULT_PITCH: 0,
-        ZOOM_THRESHOLD: 15
-    }
-
+const MARKER_DEZOOM = {
+    DEFAULT_ZOOM: 3,
+    DEFAULT_SPEED: 1.3,
+    DEFAULT_BEARING: 0,
+    DEFAULT_PITCH: 0,
+    ZOOM_THRESHOLD: 15
+};
 
 // Encart actif
 export function setActiveEncart(encartId, map) {
