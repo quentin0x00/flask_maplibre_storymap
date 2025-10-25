@@ -2,7 +2,7 @@
 
 Une application minimaliste pour valoriser des données géo grâce à une storymap. Créée avec Flask et MapLibre ; hébergée sur VPS.
 
-Demo utilisant mon parcours pro : https://app.quentinrouquette.fr/
+Demo utilisant mon parcours pro : https://cv.quentinrouquette.fr/
 
 ## Installation
 
